@@ -1,0 +1,191 @@
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojResolveAssemblyReference.cache
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\TriangleShader.pdb
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.dll
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.dll
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.dll
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.dll
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.dll
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.dll
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.dll
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.xml
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.xml
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.xml
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.xml
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.xml
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.xml
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.xml
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
+C:\Users\user\OneDrive\Doc\КГ\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+E:\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
+E:\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe
+E:\TriangleShader\TriangleShader\bin\Debug\TriangleShader.pdb
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.dll
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.dll
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.dll
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.dll
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.dll
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.dll
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.dll
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.xml
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.xml
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.xml
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.xml
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.xml
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.xml
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.xml
+E:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojResolveAssemblyReference.cache
+E:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
+E:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
+E:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+F:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojResolveAssemblyReference.cache
+F:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
+F:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
+F:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+F:\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
+F:\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe
+F:\TriangleShader\TriangleShader\bin\Debug\TriangleShader.pdb
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.dll
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.dll
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.dll
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.dll
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.dll
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.dll
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.dll
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.xml
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.xml
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.xml
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.xml
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.xml
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.xml
+F:\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.xml
+H:\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
+H:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
+H:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+H:\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojResolveAssemblyReference.cache
+H:\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe
+H:\TriangleShader\TriangleShader\bin\Debug\TriangleShader.pdb
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.dll
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.dll
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.dll
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.dll
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.dll
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.dll
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.dll
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.xml
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.xml
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.xml
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.xml
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.xml
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.xml
+H:\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.xml
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.dll
+E:\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.xml
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\TriangleShader.pdb
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.dll
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.dll
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.dll
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.dll
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.dll
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.dll
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.dll
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.dll
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.xml
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.xml
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.xml
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.xml
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.xml
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.xml
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.xml
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.xml
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.dll
+C:\Users\User\Documents\Git\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.xml
+C:\Users\User\source\repos\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojResolveAssemblyReference.cache
+C:\Users\User\source\repos\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
+C:\Users\User\source\repos\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\TriangleShader.pdb
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.dll
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.dll
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.dll
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.dll
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.dll
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.dll
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.dll
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.dll
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.dll
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.xml
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.xml
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.xml
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.xml
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.xml
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.xml
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.xml
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.xml
+C:\Users\User\source\repos\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.xml
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\TriangleShader.pdb
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.dll
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.dll
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.dll
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.dll
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.dll
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.dll
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.dll
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.dll
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.dll
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.xml
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.xml
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.xml
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.xml
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.xml
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.xml
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.xml
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.xml
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.xml
+E:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojResolveAssemblyReference.cache
+E:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
+E:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
+E:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTextStruc.fx
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTexture.fx
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTriangle.fx
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\TriangleShader.pdb
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.dll
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.dll
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.dll
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.dll
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.dll
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.dll
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.dll
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.dll
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.dll
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.xml
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.xml
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.xml
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.xml
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.xml
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.xml
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.xml
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.xml
+D:\Новая папка\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.xml
+D:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojResolveAssemblyReference.cache
+D:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
+D:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
+D:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTextStruc.fx
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTexture.fx
+E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTriangle.fx
