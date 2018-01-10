@@ -67,8 +67,7 @@ namespace GameFramework
             game.context.UpdateSubresource(ref constantData, constantBuffer);
             if (lightFlag)
             {
-                Console.WriteLine(game.lightData.Position);
-                game.context.UpdateSubresource(ref game.lightData, game.lightBuffer);
+                game.context.UpdateSubresource(ref game.sceneLight.light, game.lightBuffer);
             }
         }
         public override void CreateLayout()

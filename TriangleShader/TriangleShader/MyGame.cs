@@ -9,12 +9,7 @@ namespace GameFramework
         CubeComponent cubeMini;
         public MyGame(string name, int fwidth, int fheigh, Vector3 position, bool flag):base( name,fwidth,fheigh,position,flag)
         {
-            lightData = new LightData();
-            lightData.Position = new Vector4(10, 10, 0, 1);
-            lightData.Color =(Vector4) Color.Cyan;
-
-            sceneLight = new LightComponent(this, lightData.Position, lightData.Color);
-
+            sceneLight = new LightComponent(this, new Vector4(10, 10, 0, 1), (Vector4)Color.Cyan);
             Components = new List<GameComponent>();
             
             //CubeComponent cube = new CubeComponent(this);
@@ -45,7 +40,7 @@ namespace GameFramework
             cubeMini.transform.Scale = 2f;
             cubeMini.transform.Position = new Vector3(10,10,0);
             cubeMini.SetTextureFile("Moon.jpg");
-            Components.Add(cubeMini);
+           // Components.Add(cubeMini);
 
             GameModelComp cow = new GameModelComp(this, "cow.obj");
             cow.SetTextureFile("cow.jpg");
@@ -59,14 +54,7 @@ namespace GameFramework
        public void Transformation(CubeComponent cube, Vector3 radius)
         {
             var time = clock.ElapsedMilliseconds*0.01f;
-            
-           // cube.transform.MoveVector(new Vector3((float)Math.Cos(angle),(float)Math.Sin(angle),0f));
         }
-        public override void UpdateLight()
-        {
-            var time = clock.ElapsedMilliseconds * 0.001f;
-            lightData.Position =new Vector4(50f,(float)Math.Cos(time)*50f,0f,0f);
-            cubeMini.transform.Position = new Vector3(50f, (float)Math.Cos(time)*50f, 0f);
-        }
+        
     }
 }

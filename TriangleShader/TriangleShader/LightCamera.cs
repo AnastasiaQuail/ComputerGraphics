@@ -9,7 +9,7 @@ namespace GameFramework
 
         public LightComponent2(Game game)
         {
-            RotationMatrix = Matrix.RotationYawPitchRoll(0,0,0);
+           /* RotationMatrix = Matrix.RotationYawPitchRoll(0,0,0);
             position = (Vector3)(game.lightData.Position);
             lookAt = position + RotationMatrix.Forward;
             up = RotationMatrix.Up;
@@ -19,7 +19,7 @@ namespace GameFramework
 
             ViewProj = Matrix.Multiply(ViewMatrix, ProjMatrix);
 			this.game = game;
-			Initialize(game, "Shaders/Shadow.fx",false);
+			Initialize(game, "Shaders/Shadow.fx",false);*/
 
         }
 		

@@ -34,7 +34,6 @@ namespace GameFramework
         private Texture2D zBuffer;
         public DepthStencilView depthView { get; set; }
         public Buffer lightBuffer;
-        public LightData lightData;
         public LightComponent sceneLight;
        
 
@@ -45,13 +44,11 @@ namespace GameFramework
             clock = new Stopwatch();
             inputDevice = new InputDevice(this);
             mycamera = new Camera(this,position,flag);
+            sceneLight = new LightComponent(this, Vector4.One, Color4.White);
             Form = new RenderForm(name)
             {
                 ClientSize = new System.Drawing.Size(fwidth, fheigh)
             };
-
-            lightData = new LightData();
-            sceneLight = new LightComponent(this, lightData.Position, lightData.Color);
             InitializeDeviceResources();
         }
         private void InitializeDeviceResources()
@@ -145,20 +142,16 @@ namespace GameFramework
                     mycamera.Render();
 
                     //update light
-                   UpdateLight();
-					//context.UpdateSubresource(ref lightData, lightBuffer);
+                    sceneLight.Update();
 
                     //Set background
                     context.ClearDepthStencilView(depthView, DepthStencilClearFlags.Depth, 1.0f, 0);
                     context.ClearRenderTargetView(renderView, Color.DarkSlateBlue);
 
-                   // sceneLight.Update();
                 //Update components
                 foreach (var component in Components)
                     {
-
                         component.Update();
-
                     }
 
                 //Drawing all components of the Game
@@ -187,10 +180,6 @@ namespace GameFramework
                BindFlags.ConstantBuffer,
                CpuAccessFlags.None,
                ResourceOptionFlags.None, 0);
-        }
-
-        public virtual void UpdateLight()
-        {
         }
 
 

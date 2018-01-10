@@ -58,7 +58,7 @@ float4 PSMain(PS_IN input) : SV_Target
 	l = normalize(light.pos - input.posWorld);
 	diffuse = max(0, dot(l,normal));
 	float4 kd = Picture.Sample(Sampler, input.tex.xy);
-	result = kd*(ambient + diffuse);
+	result = kd*(ambient + diffuse)*light.col;
 
 	return float4(result.rgb,1.0f);
 }
