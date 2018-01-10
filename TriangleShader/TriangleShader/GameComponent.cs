@@ -181,7 +181,7 @@ namespace GameFramework
             //Resterizer Stage
             game.context.Rasterizer.State = new RasterizerState(game.device, new RasterizerStateDescription
             {
-                CullMode = CullMode.Front,
+                CullMode = CullMode.Back,
                 FillMode = FillMode.Solid 
             });
             game.context.OutputMerger.SetTargets(game.depthView, game.renderView);

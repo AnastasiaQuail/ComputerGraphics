@@ -9,19 +9,22 @@ namespace GameFramework
 
         public MyGame(string name, int fwidth, int fheigh, Vector3 position, bool flag):base( name,fwidth,fheigh,position,flag)
         {
-           // triangle = new TriangleComponent(this);
+            
            
            // Cells lines = new Cells(this);
            
             Components = new List<GameComponent>();
             //CubeComponent cube = new CubeComponent(this);
-          //  cube.SetWorldMatrix(Matrix.RotationY(60));
+            //  cube.SetWorldMatrix(Matrix.RotationY(60));
             //cube.transform.Scale=100f;
             //  Components.Add(cube);
+          //  TriangleComponent triangle = new TriangleComponent(this);
             SurfaceComponent surface = new SurfaceComponent(this, 50, 50, Color4.White);
 
-            Components.Add(surface);
+           
+           // Components.Add(triangle);
             surface.SetTextureFile("Platform.jpg");
+            Components.Add(surface);
 
             CubeComponent cubeMini = new CubeComponent(this);
             cubeMini.transform.Scale = 2f;

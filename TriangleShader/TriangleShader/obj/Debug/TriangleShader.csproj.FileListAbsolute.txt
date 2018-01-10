@@ -189,3 +189,31 @@ D:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.
 E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTextStruc.fx
 E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTexture.fx
 E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTriangle.fx
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTextStruc.fx
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTexture.fx
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTriangle.fx
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\TriangleShader.pdb
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.dll
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.dll
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.dll
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.dll
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.dll
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.dll
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.dll
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.dll
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.dll
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.xml
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.D3DCompiler.xml
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Desktop.xml
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Diagnostics.xml
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct2D1.xml
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Direct3D11.xml
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.DXGI.xml
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.Mathematics.xml
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\SharpDX.RawInput.xml
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojResolveAssemblyReference.cache
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb

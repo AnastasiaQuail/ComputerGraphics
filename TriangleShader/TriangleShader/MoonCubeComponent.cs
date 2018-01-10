@@ -13,7 +13,6 @@ namespace GameFramework
         public MoonCubeComponent(Game gameObj,CubeComponent parent):base(gameObj)
         {
             this.parent = parent;
-          //  WorldMatrix = Matrix.Translation(new Vector3(2f, 2f, 0f));
             textureFile = "Texture.jpg";
             transform.RotationZ = -30;
             transform.RotationX = -30;
@@ -22,7 +21,7 @@ namespace GameFramework
         {
              Matrix trans = Matrix.Scaling(0.5f)  * Matrix.Translation(new Vector3(3f, 0f, 0f)) * Matrix.RotationZ(transform.Rotate());
             
-            WorldMatrix =trans* parent.WorldMatrix;
+             WorldMatrix =trans * parent.WorldMatrix;
         }
     }
 }

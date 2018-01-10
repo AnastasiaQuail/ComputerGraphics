@@ -36,12 +36,12 @@ namespace GameFramework
             return new Points[]
             {
                 new Points( new Vector4(-width, -heigh, z, 1.0f), new Vector4(0,1,0,0)),
-				new Points(new Vector4(-width,  heigh, z, 1.0f), new Vector4(0,0,0,0)),
 				new Points(new Vector4( width,  heigh, z, 1.0f), new Vector4(1,0,0,0)),
+                new Points(new Vector4(-width,  heigh, z, 1.0f), new Vector4(0,0,0,0)),
                 new Points(new Vector4(-width, -heigh, z, 1.0f), new Vector4(0,1,0,0)),
-                new Points(new Vector4( width,  heigh, z, 1.0f), new Vector4(1,0,0,0)),
-				new Points(new Vector4( width, -heigh, z, 1.0f), new Vector4(1,1,0,0))
-			};
+				new Points(new Vector4( width, -heigh, z, 1.0f), new Vector4(1,1,0,0)),
+                 new Points(new Vector4( width,  heigh, z, 1.0f), new Vector4(1,0,0,0))
+            };
         }
         public override void Draw()
         {

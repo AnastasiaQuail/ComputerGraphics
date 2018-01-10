@@ -100,11 +100,11 @@ namespace GameFramework
         {
             IsActive = false;
 
+           // context.ClearState();
+            //context.Flush();
+            //context.Dispose();
             renderView.Dispose();
             backBuffer.Dispose();
-            context.ClearState();
-            context.Flush();
-            context.Dispose();
             zBuffer.Dispose();
             depthView.Dispose();
             device.Dispose();

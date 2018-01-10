@@ -1,6 +1,13 @@
+struct ConstData
+{
+	float4x4 WorldViewProj;
+	float4x4 World;
+	float4x4 InvertWorld;
+	float4 ViewPos;
+};
 cbuffer VS_CONSTANT_BUFFER : register(b0)
 {
-float4x4 WorldViewProj;
+	ConstData data;
 };
 struct VS_IN
 {
@@ -16,7 +23,7 @@ PS_IN VSMain (VS_IN input)
 {
 PS_IN output = (PS_IN)0;
 
-output.pos =mul(input.pos,WorldViewProj);
+output.pos =mul(input.pos,data.WorldViewProj);
 output.col = input.col;
 
 return output;

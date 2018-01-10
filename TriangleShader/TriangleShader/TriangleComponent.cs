@@ -9,7 +9,7 @@ namespace GameFramework
         public TriangleComponent(Game gameObj) {
 
             this.game = gameObj;
-            Initialize(game, "BCTriangle.fx",false);
+            Initialize(game, "Shaders/BCTriangle.fx",false);
         }
          public override void Draw()
         {

@@ -70,18 +70,31 @@ namespace GameFramework
         }
         public override void Update()
         {
+  
+            game.mycamera.GetVPMatrix(out ViewProjMatrix);
+            WorldMatrix = transform.GetWorldMatrix();
             Transformation();
 
-            game.mycamera.GetVPMatrix(out ViewProjMatrix);
             Matrix.Multiply(ref WorldMatrix, ref ViewProjMatrix, out WorldViewProjMatrix);
 
-            //Set transformation matrix
-            game.context.UpdateSubresource(ref WorldViewProjMatrix, constantBuffer);
-            transform.SetFrameTime(game.clock.ElapsedMilliseconds);
+            //Set data
+            InvertWorld = WorldMatrix;
+            InvertWorld.Invert();
+
+            constantData.World = WorldMatrix;
+            constantData.InvertWorld = InvertWorld;
+            constantData.WorldViewProj = WorldViewProjMatrix;
+            constantData.ViewPos = new Vector4(transform.Position, 1);
+
+            game.context.UpdateSubresource(ref constantData, constantBuffer);
+
+
         }
 
         public virtual void Transformation()
         {
+            transform.GoCircle(new Vector3(2, 0, 0));
+            
         }
 
         public override void Draw()
