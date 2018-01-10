@@ -9,8 +9,10 @@ namespace GameFramework
         CubeComponent cubeMini;
         public MyGame(string name, int fwidth, int fheigh, Vector3 position, bool flag):base( name,fwidth,fheigh,position,flag)
         {
-            sceneLight = new LightComponent(this, new Vector4(10, 10, 0, 1), (Vector4)Color.Cyan);
+            sceneLight = new LightCamera(this);
+            sceneLight.setLightData(new Vector4(10, 10, 0, 1), (Vector4)Color.Cyan);
             Components = new List<GameComponent>();
+            Components.Add(sceneLight);
             
             //CubeComponent cube = new CubeComponent(this);
             //  cube.SetWorldMatrix(Matrix.RotationY(60));

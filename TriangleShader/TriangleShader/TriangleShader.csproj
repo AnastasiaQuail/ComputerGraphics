@@ -81,7 +81,6 @@
     <Compile Include="GameModelComp.cs" />
     <Compile Include="GameText.cs" />
     <Compile Include="LightCamera.cs" />
-    <Compile Include="LightComponent.cs" />
     <Compile Include="LightData.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MoonCubeComponent.cs" />

@@ -24,9 +24,8 @@ namespace GameFramework
             score = new Vector2();
             flagOutside = false;
             Components = new List<GameComponent>();
-            sceneLight = new LightComponent(this);
-            sceneLight.light.Position = new Vector4(0, 20, 0, 1);
-            sceneLight.light.Color = new Vector4(0, 20, 0, 1);
+            sceneLight = new LightCamera(this);
+            sceneLight.setLightData(new Vector4(0, 20, 0, 1), new Vector4(0, 20, 0, 1));
 
 			ball = new PongBall(this, 10, 10, new Vector4(0.2f, 1f, 0.5f, 1f));
             

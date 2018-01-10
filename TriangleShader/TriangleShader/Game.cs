@@ -34,7 +34,7 @@ namespace GameFramework
         private Texture2D zBuffer;
         public DepthStencilView depthView { get; set; }
         public Buffer lightBuffer;
-        public LightComponent sceneLight;
+        public LightCamera sceneLight;
        
 
 
@@ -44,7 +44,8 @@ namespace GameFramework
             clock = new Stopwatch();
             inputDevice = new InputDevice(this);
             mycamera = new Camera(this,position,flag);
-            sceneLight = new LightComponent(this, Vector4.One, Color4.White);
+            sceneLight = new LightCamera(this);
+            sceneLight.setLightData( Vector4.One, Color4.White);
             Form = new RenderForm(name)
             {
                 ClientSize = new System.Drawing.Size(fwidth, fheigh)
@@ -140,9 +141,6 @@ namespace GameFramework
 
                     //Render view
                     mycamera.Render();
-
-                    //update light
-                    sceneLight.Update();
 
                     //Set background
                     context.ClearDepthStencilView(depthView, DepthStencilClearFlags.Depth, 1.0f, 0);
