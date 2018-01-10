@@ -35,6 +35,7 @@ namespace GameFramework
         public DepthStencilView depthView { get; set; }
         public Buffer lightBuffer;
         public LightData lightData;
+        public LightComponent sceneLight;
        
 
 
@@ -50,6 +51,7 @@ namespace GameFramework
             };
 
             lightData = new LightData();
+            sceneLight = new LightComponent(this, lightData.Position, lightData.Color);
             InitializeDeviceResources();
         }
         private void InitializeDeviceResources()
@@ -143,13 +145,14 @@ namespace GameFramework
                     mycamera.Render();
 
                     //update light
-                    //UpdateLight();
+                   UpdateLight();
 					//context.UpdateSubresource(ref lightData, lightBuffer);
 
                     //Set background
                     context.ClearDepthStencilView(depthView, DepthStencilClearFlags.Depth, 1.0f, 0);
-                    context.ClearRenderTargetView(renderView, Color.Blue);
+                    context.ClearRenderTargetView(renderView, Color.DarkSlateBlue);
 
+                   // sceneLight.Update();
                 //Update components
                 foreach (var component in Components)
                     {
@@ -188,7 +191,6 @@ namespace GameFramework
 
         public virtual void UpdateLight()
         {
-            lightData.Position = new Vector4(0, 20, 0, 1);
         }
 
 

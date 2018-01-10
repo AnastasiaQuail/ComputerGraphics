@@ -2,12 +2,12 @@
 
 namespace GameFramework
 {
-    class LightComponent:GameComponent
+    class LightComponent2:GameComponent
     {
         Matrix ViewMatrix,ProjMatrix,ViewProj,RotationMatrix;
         Vector3 position, lookAt,up;
 
-        public LightComponent(Game game)
+        public LightComponent2(Game game)
         {
             RotationMatrix = Matrix.RotationYawPitchRoll(0,0,0);
             position = (Vector3)(game.lightData.Position);

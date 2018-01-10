@@ -5,6 +5,7 @@ using SharpDX;
 using SharpDX.Direct3D;
 using SharpDX.DXGI;
 using GameFramework;
+using System;
 
 namespace GameFramework
 {
@@ -64,6 +65,11 @@ namespace GameFramework
             constantData.WorldViewProj = WorldViewProjMatrix;
             //Set data
             game.context.UpdateSubresource(ref constantData, constantBuffer);
+            if (lightFlag)
+            {
+                Console.WriteLine(game.lightData.Position);
+                game.context.UpdateSubresource(ref game.lightData, game.lightBuffer);
+            }
         }
         public override void CreateLayout()
         {

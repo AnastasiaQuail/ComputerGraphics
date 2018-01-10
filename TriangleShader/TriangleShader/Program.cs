@@ -10,8 +10,8 @@ namespace GameFramework
     {
         static void Main(string[] args)
         {
-            //MyGame game = new MyGame("Triangle",800, 800, new Vector3(0,5,28),true);
-            Pong game = new Pong("Pong", 800, 800, new Vector3(0, 0,200f));
+            MyGame game = new MyGame("Triangle",800, 800, new Vector3(0,5,28),false);
+            //Pong game = new Pong("Pong", 800, 800, new Vector3(0, 0,200f));
             game.Run();
             game.Dispose();
         }

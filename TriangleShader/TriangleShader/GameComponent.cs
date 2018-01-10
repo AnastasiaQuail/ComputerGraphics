@@ -30,7 +30,7 @@ namespace GameFramework
         private TextureLoader textureLoader;
         public ConstantData constantData;
 		private LightData light;
-        bool lightFlag;
+        public bool lightFlag;
 
         public struct Points
         {
@@ -89,8 +89,7 @@ namespace GameFramework
 
         }
         public virtual void Draw() {
-            if(lightFlag)
-			    game.context.PixelShader.SetConstantBuffer(1, game.lightBuffer);
+            
 		}
         public void Dispose()
         {
