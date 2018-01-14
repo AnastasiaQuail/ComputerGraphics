@@ -9,10 +9,12 @@ namespace GameFramework
         CubeComponent cubeMini;
         public MyGame(string name, int fwidth, int fheigh, Vector3 position, bool flag):base( name,fwidth,fheigh,position,flag)
         {
+            shadowFlag = true;
             sceneLight = new LightCamera(this);
             sceneLight.setLightData(new Vector4(10, 10, 0, 1), (Vector4)Color.Cyan);
             Components = new List<GameComponent>();
             Components.Add(sceneLight);
+            
             
             //CubeComponent cube = new CubeComponent(this);
             //  cube.SetWorldMatrix(Matrix.RotationY(60));
@@ -49,11 +51,16 @@ namespace GameFramework
             cow.transform.Scale = 10f;
             Components.Add(cow);
 
+            GameModelComp cube = new GameModelComp(this,"crate.obj");
+            cube.SetTextureFile("crate.jpg");
+            cube.transform.Position += new Vector3(100f, -150f, 0);
+            cube.transform.Scale=300f;
+            Components.Add(cube);
 
 
         }
 
-       public void Transformation(CubeComponent cube, Vector3 radius)
+        public void Transformation(CubeComponent cube, Vector3 radius)
         {
             var time = clock.ElapsedMilliseconds*0.01f;
         }

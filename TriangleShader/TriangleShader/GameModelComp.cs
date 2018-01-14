@@ -23,6 +23,7 @@ namespace GameFramework
             this.game = game;
             fileName = filename;
             objLoader = new ObjLoader();
+            nameOfShader = "Shaders/BCTextStruc.fx";
             Initialize(game, "Shaders/BCTextStruc.fx",true);
             parent = null;
             constantData = new ConstantData();
@@ -42,10 +43,20 @@ namespace GameFramework
             UpdateContext(PrimitiveTopology.TriangleList);
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
             game.context.InputAssembler.SetVertexBuffers(0, BufferBinding);
-
             ResterizeStage();
             game.context.Draw(verticesCount, 0);
         }
+        public override void ShadowDraw()
+        {
+            base.ShadowDraw();
+           // UpdateShadow();
+            game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
+            game.context.InputAssembler.SetVertexBuffers(0, BufferBinding);
+            ResterizeStage();
+            game.context.Draw(verticesCount, 0);
+
+        }
+
         public override void Update()
         {
             game.mycamera.GetVPMatrix(out ViewProjMatrix);

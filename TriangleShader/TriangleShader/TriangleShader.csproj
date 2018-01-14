@@ -108,6 +108,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Shaders\BCLight.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Shaders\BCTextStruc.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

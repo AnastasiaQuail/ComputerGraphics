@@ -16,6 +16,7 @@ namespace GameFramework
             // Use clock
             this.game = gameObj;
             textureFile = "Texture.jpg";
+            nameOfShader = "Shaders/BCTexture.fx";
             Initialize(game, "Shaders/BCTexture.fx",false);
             transform = new Transform();
             WorldViewProjMatrix = Matrix.Identity;
@@ -73,7 +74,7 @@ namespace GameFramework
   
             game.mycamera.GetVPMatrix(out ViewProjMatrix);
             WorldMatrix = transform.GetWorldMatrix();
-            Transformation();
+           // Transformation();
 
             Matrix.Multiply(ref WorldMatrix, ref ViewProjMatrix, out WorldViewProjMatrix);
 
@@ -106,8 +107,17 @@ namespace GameFramework
             ResterizeStage();
             game.context.Draw(36, 0);
         }
-      
-        
+        public override void ShadowDraw()
+        {
+            base.ShadowDraw();
+            UpdateShadow();
+            game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
+            ResterizeStage();
+            game.context.Draw(36, 0);
+
+        }
+
+
     }
 }
 

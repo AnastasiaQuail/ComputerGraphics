@@ -11,6 +11,6 @@ namespace GameFramework
     {
         public Vector4 Position;
         public Vector4 Color;
-    
+        public Matrix ViewProj; 
     }
 }

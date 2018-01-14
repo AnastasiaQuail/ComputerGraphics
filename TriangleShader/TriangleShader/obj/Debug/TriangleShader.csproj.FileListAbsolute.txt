@@ -217,3 +217,4 @@ C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\
 C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
 C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
 C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCLight.fx
