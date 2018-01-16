@@ -73,29 +73,22 @@ namespace GameFramework
         {
   
             game.mycamera.GetVPMatrix(out ViewProjMatrix);
+            Transformation();
             WorldMatrix = transform.GetWorldMatrix();
-           // Transformation();
 
             Matrix.Multiply(ref WorldMatrix, ref ViewProjMatrix, out WorldViewProjMatrix);
 
             //Set data
-            InvertWorld = WorldMatrix;
-            InvertWorld.Invert();
-
-            constantData.World = WorldMatrix;
-            constantData.InvertWorld = InvertWorld;
-            constantData.WorldViewProj = WorldViewProjMatrix;
-            constantData.ViewPos = new Vector4(transform.Position, 1);
-
-            game.context.UpdateSubresource(ref constantData, constantBuffer);
+            SetConstantData();
 
 
         }
 
         public virtual void Transformation()
         {
-            transform.GoCircle(new Vector3(2, 0, 0));
-            
+            var time = game.clock.ElapsedMilliseconds * 0.001f;
+           transform.SetPosition(100f, (float)Math.Cos(time) * 50f, 0f);
+
         }
 
         public override void Draw()

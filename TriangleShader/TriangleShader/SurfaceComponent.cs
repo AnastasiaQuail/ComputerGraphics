@@ -52,8 +52,10 @@ namespace GameFramework
             ResterizeStage();
             game.context.Draw(6, 0);
         }
+        public override void Initialize(Game game, string nameOfFile, bool IsLight)
+        {
+        }
 
-        
     }
 
 }

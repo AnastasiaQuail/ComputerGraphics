@@ -65,12 +65,12 @@ float ambient = 0.1f;
 l = normalize(light.pos - input.posWorld);
 diffuse = max(0, dot(l,normal));
 float4 kd = Picture.Sample(Sampler, input.tex.xy);
-float4 depth = ShadowMap.Sample(ShadowSampler, input.posLight.xy);
+float4 depth = ShadowMap.Sample(ShadowSampler, float2((input.posLight.x + 1)*0.5f, (input.posLight.y + 1)*0.5f));
 
 result = kd*(ambient + diffuse)*light.col;
-[branch] if (input.posLight.z < depth.z)
+[branch] if (input.posLight.z< depth.z)
 {
-	result = 0;
+	result = kd*(ambient)*light.col*0.0f;
 }
 
 return float4(result.rgb,1.0f);

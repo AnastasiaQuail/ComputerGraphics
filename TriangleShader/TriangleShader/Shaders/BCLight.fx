@@ -1,7 +1,4 @@
-﻿Texture2D Picture : register(t0);
-SamplerState Sampler : register(s0);
-
-struct ConstData
+﻿struct ConstData
 {
 	float4x4 WorldViewProj;
 	float4x4 World;

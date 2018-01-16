@@ -56,7 +56,6 @@ namespace GameFramework
             context = game.context;
             lightFlag = IsLight;
             textureLoader = new TextureLoader(game);
-            transform = new Transform();
 
             CreateVertexBuffer(nameOfFile);
 
@@ -75,12 +74,14 @@ namespace GameFramework
             //get transform from WorldViewProjMatrix
             game.mycamera.GetVPMatrix(out ViewProjMatrix);
             WorldMatrix = transform.GetWorldMatrix();
-            
+
             Matrix.Multiply(ref  WorldMatrix,ref ViewProjMatrix, out WorldViewProjMatrix);
 
+            float cuurTime = game.clock.ElapsedMilliseconds;
             SetConstantData();
+            float nextTime = game.clock.ElapsedMilliseconds;
 
-			transform.SetFrameTime(game.clock.ElapsedMilliseconds);
+            transform.SetFrameTime(nextTime-cuurTime);
         }
         public virtual void Draw() {
             
@@ -263,7 +264,7 @@ namespace GameFramework
             CreateTextureSampler();
 
         }
-        private void SetConstantData()
+        public void SetConstantData()
         {
             //Set data
             InvertWorld = WorldMatrix;

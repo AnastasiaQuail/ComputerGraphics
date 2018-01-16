@@ -30,9 +30,12 @@ namespace GameFramework
         public virtual void updateLightData()
         {
             var time = game.clock.ElapsedMilliseconds * 0.001f;
-            light.Position = new Vector4(50f, (float)Math.Cos(time) * 50f, 0f, 0f);
+            light.Position = new Vector4(100f, (float)Math.Cos(time) * 50f, 0f, 0f);
             camera.SetPosition(light.Position.X, light.Position.Y, light.Position.Z);
             camera.GetVPMatrix(out light.ViewProj);
+        }
+        public override void Initialize(Game game, string nameOfFile, bool IsLight)
+        { 
         }
     }
 }

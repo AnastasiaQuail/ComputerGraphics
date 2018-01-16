@@ -107,12 +107,6 @@ namespace GameFramework
         public void Dispose()
         {
             IsActive = false;
-
-            foreach (var component in Components)
-            {
-                component.Dispose();
-            }
-
             context.ClearState();
             context.Flush();
             context.Dispose();
@@ -123,6 +117,10 @@ namespace GameFramework
             device.Dispose();
             swapChain.Dispose();
 
+            foreach (var component in Components)
+            {
+                component.Dispose();
+            }
         }
 
 
@@ -148,7 +146,7 @@ namespace GameFramework
                     if (!IsActive)
                       { Dispose(); Form.Close(); return; }
 
-                    //  context.Rasterizer.SetViewport(new Viewport(0, 0, Form.ClientSize.Width, Form.ClientSize.Height, 0.0f, 1.0f));
+                    context.Rasterizer.SetViewport(new Viewport(0, 0, Form.ClientSize.Width, Form.ClientSize.Height, 0.0f, 1.0f));
 
                     sceneLight.camera.Render();
                     //Render view
@@ -170,17 +168,21 @@ namespace GameFramework
                         {
                             //Draw components to shadowMap
                             component.ShadowDraw();
-                            CreateShadowSampler();
-                            CreateShadowView();
-                            component.Initialize(this, component.nameOfShader, true);
                         }
+                    }
+                    CreateShadowSampler();
+                    CreateShadowView();
+
+                    foreach (var component in Components)
+                    {
                         //Update components
+                        component.Initialize(this, component.nameOfShader, true);
                         component.Update();
                     }
 
 
                     context.OutputMerger.SetTargets(depthView, renderView);
-                    context.Rasterizer.SetViewport(new Viewport(0, 0, Form.ClientSize.Width, Form.ClientSize.Height, 0.0f, 1.0f));
+                   // context.Rasterizer.SetViewport(new Viewport(0, 0, Form.ClientSize.Width, Form.ClientSize.Height, 0.0f, 1.0f));
                     context.ClearRenderTargetView(renderView, Color.DarkSlateBlue);
 
                     //Drawing all components of the Game

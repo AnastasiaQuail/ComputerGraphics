@@ -60,7 +60,7 @@ namespace GameFramework
             public void SetFrameTime(float time)
             {
             m_FrameTime = time;
-           // delta = time*0.0001f;
+            delta = time*0.00001f;
             }
             public void MoveForward(bool keydown)
             {

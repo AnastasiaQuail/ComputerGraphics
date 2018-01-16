@@ -23,6 +23,7 @@ namespace GameFramework
             this.game = game;
             fileName = filename;
             objLoader = new ObjLoader();
+            transform = new Transform();
             nameOfShader = "Shaders/BCTextStruc.fx";
             Initialize(game, "Shaders/BCTextStruc.fx",true);
             parent = null;
@@ -67,15 +68,9 @@ namespace GameFramework
                 WorldMatrix = WorldMatrix * parent.transform.GetWorldMatrix();
             }
             Matrix.Multiply(ref WorldMatrix, ref ViewProjMatrix, out WorldViewProjMatrix);
+            Console.WriteLine(WorldViewProjMatrix);
 
-            InvertWorld = WorldMatrix;
-            InvertWorld.Invert();
-
-            constantData.World = WorldMatrix;
-            constantData.InvertWorld = InvertWorld;
-            constantData.WorldViewProj = WorldViewProjMatrix;
-            //Set data
-            game.context.UpdateSubresource(ref constantData, constantBuffer);
+            SetConstantData();
             if (lightFlag)
             {
                 game.context.UpdateSubresource(ref game.sceneLight.light, game.lightBuffer);

@@ -44,17 +44,18 @@ namespace GameFramework
             cubeMini.transform.Scale = 2f;
             cubeMini.transform.Position = new Vector3(10,10,0);
             cubeMini.SetTextureFile("Moon.jpg");
-           // Components.Add(cubeMini);
+            Components.Add(cubeMini);
 
             GameModelComp cow = new GameModelComp(this, "cow.obj");
             cow.SetTextureFile("cow.jpg");
             cow.transform.Scale = 10f;
+            cow.transform.Position += new Vector3(30f, -15f, 0);
             Components.Add(cow);
 
             GameModelComp cube = new GameModelComp(this,"crate.obj");
             cube.SetTextureFile("crate.jpg");
-            cube.transform.Position += new Vector3(100f, -150f, 0);
-            cube.transform.Scale=300f;
+            cube.transform.Position += new Vector3(0f, -15f, 10f);
+            cube.transform.Scale=30f;
             Components.Add(cube);
 
 

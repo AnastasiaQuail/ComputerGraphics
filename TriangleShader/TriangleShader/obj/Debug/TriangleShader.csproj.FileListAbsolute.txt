@@ -189,7 +189,6 @@ D:\Новая папка\TriangleShader\TriangleShader\obj\Debug\TriangleShader.
 E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTextStruc.fx
 E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTexture.fx
 E:\Новая папка\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTriangle.fx
-C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTextStruc.fx
 C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTexture.fx
 C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTriangle.fx
 C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\TriangleShader.exe.config
@@ -218,3 +217,4 @@ C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\
 C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
 C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
 C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCLight.fx
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCTextStruc.fx

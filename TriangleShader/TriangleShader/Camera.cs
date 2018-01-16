@@ -73,7 +73,7 @@ namespace GameFramework
 
             //delta time
             var currTime = clock.ElapsedMilliseconds;
-            delta = (currTime - frameTime) * 0.1f;
+            delta = (currTime - frameTime) * 0.01f;
 
             if (!flag)
             {
@@ -132,8 +132,8 @@ namespace GameFramework
            
             Vector2 curentMPos = input.MousePositionLocal;
 
-            yaw += MathUtil.DegreesToRadians(eventArgs.Offset.X) * delta*5f;
-            pitch -= MathUtil.DegreesToRadians(eventArgs.Offset.Y) * delta*5f;
+            yaw += MathUtil.DegreesToRadians(eventArgs.Offset.X) * delta*2f;
+            pitch -= MathUtil.DegreesToRadians(eventArgs.Offset.Y) * delta*2f;
 
             if (Math.Abs(pitch) > 60)
                 pitch = 60f*Math.Sign(pitch);
