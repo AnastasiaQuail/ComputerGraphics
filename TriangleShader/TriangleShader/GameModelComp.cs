@@ -41,7 +41,7 @@ namespace GameFramework
         public override void Draw()
         {
 			base.Draw();
-            UpdateContext(PrimitiveTopology.TriangleList);
+            UpdateContext(PrimitiveTopology.TriangleList,Utilities.SizeOf<Vector4>()*3);
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
             game.context.InputAssembler.SetVertexBuffers(0, BufferBinding);
             ResterizeStage();
@@ -68,7 +68,6 @@ namespace GameFramework
                 WorldMatrix = WorldMatrix * parent.transform.GetWorldMatrix();
             }
             Matrix.Multiply(ref WorldMatrix, ref ViewProjMatrix, out WorldViewProjMatrix);
-            Console.WriteLine(WorldViewProjMatrix);
 
             SetConstantData();
             if (lightFlag)

@@ -32,7 +32,7 @@ namespace GameFramework
         public List<GameComponent> Components { get; set; }
         public Stopwatch clock {get;set; }
         private Texture2D zBuffer;
-        private Texture2D shadowBuffer;
+        public Texture2D shadowBuffer;
         public DepthStencilView shadowView;
         public bool shadowFlag;
 
@@ -102,11 +102,18 @@ namespace GameFramework
 
             CreateLightBuffer();
             CreateShadowBuffer();
+            CreateShadowSampler();
+            CreateShadowView();
         }
 
         public void Dispose()
         {
             IsActive = false;
+
+            foreach (var component in Components)
+            {
+                //component.Dispose();
+            }
             context.ClearState();
             context.Flush();
             context.Dispose();
@@ -116,11 +123,6 @@ namespace GameFramework
             depthView.Dispose();
             device.Dispose();
             swapChain.Dispose();
-
-            foreach (var component in Components)
-            {
-                component.Dispose();
-            }
         }
 
 
@@ -146,6 +148,8 @@ namespace GameFramework
                     if (!IsActive)
                       { Dispose(); Form.Close(); return; }
 
+                    context.ClearState();
+
                     context.Rasterizer.SetViewport(new Viewport(0, 0, Form.ClientSize.Width, Form.ClientSize.Height, 0.0f, 1.0f));
 
                     sceneLight.camera.Render();
@@ -159,7 +163,6 @@ namespace GameFramework
                     //Clear shadow map
                     context.ClearDepthStencilView(shadowView, DepthStencilClearFlags.Depth, 1.0f, 0);
 
-                    context.OutputMerger.ResetTargets();
                     context.OutputMerger.SetTargets(shadowView, renderView);
 
                     foreach (var component in Components)
@@ -170,20 +173,13 @@ namespace GameFramework
                             component.ShadowDraw();
                         }
                     }
-                    CreateShadowSampler();
-                    CreateShadowView();
+                    context.OutputMerger.SetTargets(depthView, renderView);
 
                     foreach (var component in Components)
                     {
                         //Update components
-                        component.Initialize(this, component.nameOfShader, true);
                         component.Update();
                     }
-
-
-                    context.OutputMerger.SetTargets(depthView, renderView);
-                   // context.Rasterizer.SetViewport(new Viewport(0, 0, Form.ClientSize.Width, Form.ClientSize.Height, 0.0f, 1.0f));
-                    context.ClearRenderTargetView(renderView, Color.DarkSlateBlue);
 
                     //Drawing all components of the Game
                     foreach (var component in Components)
@@ -263,7 +259,6 @@ namespace GameFramework
                     MostDetailedMip = 0
                 }
             });
-            context.GenerateMips(shadowResourceView);
         }
 
     }

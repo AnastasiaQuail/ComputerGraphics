@@ -27,8 +27,8 @@ namespace GameFramework
         private Stopwatch clock;
         private float frameTime;
         public float delta;
-        private Matrix rotationMatrix;
-        private Vector3 lookAt;
+        public Matrix rotationMatrix;
+        public Vector3 lookAt { get; set; }
         private bool flag;
 
 

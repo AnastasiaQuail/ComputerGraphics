@@ -11,11 +11,11 @@ namespace GameFramework
         {
             shadowFlag = true;
             sceneLight = new LightCamera(this);
-            sceneLight.setLightData(new Vector4(10, 10, 0, 1), (Vector4)Color.Cyan);
+            sceneLight.setLightData(new Vector4(0, 0f, 3f, 1), (Vector4)Color.White);
             Components = new List<GameComponent>();
             Components.Add(sceneLight);
-            
-            
+
+
             //CubeComponent cube = new CubeComponent(this);
             //  cube.SetWorldMatrix(Matrix.RotationY(60));
             //cube.transform.Scale=100f;
@@ -38,6 +38,10 @@ namespace GameFramework
              moon2.SetTextureFile("Moon.jpg");
              Components.Add(moon2);
 
+            SurfaceComponent view = new SurfaceComponent(this, 50, 50, Color4.Black);
+            view.SetTextureFile("ff");
+            Components.Add(view);
+
              // Components.Add(lines);
              */
             cubeMini = new CubeComponent(this);
@@ -48,17 +52,25 @@ namespace GameFramework
 
             GameModelComp cow = new GameModelComp(this, "cow.obj");
             cow.SetTextureFile("cow.jpg");
-            cow.transform.Scale = 10f;
-            cow.transform.Position += new Vector3(30f, -15f, 0);
-            Components.Add(cow);
+            cow.transform.Scale = 5f;
+           // cow.transform.Position += new Vector3(30f, -15f, 0);
+           // Components.Add(cow);
 
             GameModelComp cube = new GameModelComp(this,"crate.obj");
             cube.SetTextureFile("crate.jpg");
-            cube.transform.Position += new Vector3(0f, -15f, 10f);
-            cube.transform.Scale=30f;
+            cube.transform.Position += new Vector3(0f, 0f, -6f);
+            cube.transform.Scale=10f;
             Components.Add(cube);
 
+            GameModelComp cube2 = new GameModelComp(this, "cow.obj");
+            cube2.SetTextureFile("cow.jpg");
+            cube2.transform.Position += new Vector3(2f, -2f, 0f);
+            cube2.transform.Scale = 2f;
+            Components.Add(cube2);
 
+            SurfaceComponent view = new ShadowView(this, 0.5f, 0.5f, Color4.Black);
+            view.transform.Position += new Vector3(-0.8f, 0.8f, 0f);       //              исправить трансформацию, не работает
+            Components.Add(view);         
         }
 
         public void Transformation(CubeComponent cube, Vector3 radius)

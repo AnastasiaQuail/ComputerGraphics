@@ -49,28 +49,30 @@ PS_IN VSMain(VS_IN input)
 	output.tex = input.tex;
 	output.posWorld = mul(float4(input.pos.xyz, 1.0f), data.World);
 	float4x4 lightWorldViewProj = mul(data.World, light.ViewProj);
-	output.posLight = mul(float4(input.pos.xyz, 1.0f), lightWorldViewProj);
+	float4 posLight = mul(float4(input.pos.xyz, 1.0f), lightWorldViewProj);
+	posLight = posLight / posLight.w;
+	output.posLight = posLight;
 
 	return output;
 }
 float4 PSMain(PS_IN input) : SV_Target
 {
 	float3 l;
-float diffuse;
-float4 result;
-float3 light_pos = light.pos.xyz;
-float3 normal = input.norm.xyz;
-float ambient = 0.1f;
+	float diffuse;
+	float4 result;
+	float3 light_pos = light.pos.xyz;
+	float3 normal = input.norm.xyz;
+	float ambient = 0.1f;
 
 l = normalize(light.pos - input.posWorld);
 diffuse = max(0, dot(l,normal));
 float4 kd = Picture.Sample(Sampler, input.tex.xy);
-float4 depth = ShadowMap.Sample(ShadowSampler, float2((input.posLight.x + 1)*0.5f, (input.posLight.y + 1)*0.5f));
+float4 depth = ShadowMap.Sample(ShadowSampler, float2((input.posLight.x + 1)*0.5f, ((input.posLight.y + 1)*0.5f)));
 
-result = kd*(ambient + diffuse)*light.col;
-[branch] if (input.posLight.z< depth.z)
+result = kd*(ambient+diffuse)*light.col;
+ if (input.posLight.z > depth.r)
 {
-	result = kd*(ambient)*light.col*0.0f;
+	result = kd*0.05f*light.col;
 }
 
 return float4(result.rgb,1.0f);

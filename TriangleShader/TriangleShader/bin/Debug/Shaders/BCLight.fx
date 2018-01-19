@@ -22,6 +22,8 @@ cbuffer Light_CONSTANT_BUFFER : register(b1)
 struct VS_IN
 {
 	float4 pos : POSITION;
+	float4 norm : NORMAL;
+	float4 tex : TEXCOORD;
 };
 struct VS_OUT
 {

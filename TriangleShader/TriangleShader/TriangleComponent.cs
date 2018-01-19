@@ -13,7 +13,7 @@ namespace GameFramework
         }
          public override void Draw()
         {
-            UpdateContext(PrimitiveTopology.TriangleList);
+            UpdateContext(PrimitiveTopology.TriangleList,Utilities.SizeOf<Vector4>()*2);
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
 
             ResterizeStage();

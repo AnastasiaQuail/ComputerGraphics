@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Vector4 = SharpDX.Vector4;
 using SharpDX.Direct3D;
+using SharpDX;
 
 namespace GameFramework
 {
@@ -16,7 +17,7 @@ namespace GameFramework
 
         public override void Draw()
         {
-            UpdateContext(PrimitiveTopology.LineList);
+            UpdateContext(PrimitiveTopology.LineList, Utilities.SizeOf<Vector4>() * 2);
            
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
 

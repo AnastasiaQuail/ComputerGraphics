@@ -87,14 +87,14 @@ namespace GameFramework
         public virtual void Transformation()
         {
             var time = game.clock.ElapsedMilliseconds * 0.001f;
-           transform.SetPosition(100f, (float)Math.Cos(time) * 50f, 0f);
+           transform.SetPosition(30f, (float)Math.Cos(time) * 50f, 0f);
 
         }
 
         public override void Draw()
         {
             base.Draw();
-            UpdateContext(PrimitiveTopology.TriangleList);
+            UpdateContext(PrimitiveTopology.TriangleList,Utilities.SizeOf<Vector4>()*2);
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
 
             ResterizeStage();

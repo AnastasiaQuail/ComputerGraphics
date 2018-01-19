@@ -1,5 +1,7 @@
 ﻿using SharpDX;
 using SharpDX.Direct3D;
+using SharpDX.Direct3D11;
+using SharpDX.DXGI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,13 +24,14 @@ namespace GameFramework
         public SurfaceComponent(Game gameObj,float width, float heigh, Vector4 color)
         {
             this.game = gameObj;
+            transform = new Transform();
             clock = game.clock;
             this.width = width/2f;
             this.heigh = heigh/2f;
             this.color = color;
             z = 0;
+            nameOfShader = "Shaders/BCTexture.fx";
             Initialize(game, "Shaders/BCTexture.fx",false);
-
         }
 
         public override Points[] AIStage()
@@ -36,25 +39,23 @@ namespace GameFramework
             return new Points[]
             {
                 new Points( new Vector4(-width, -heigh, z, 1.0f), new Vector4(0,1,0,0)),
-				new Points(new Vector4( width,  heigh, z, 1.0f), new Vector4(1,0,0,0)),
                 new Points(new Vector4(-width,  heigh, z, 1.0f), new Vector4(0,0,0,0)),
+                new Points(new Vector4( width,  heigh, z, 1.0f), new Vector4(1,0,0,0)),
                 new Points(new Vector4(-width, -heigh, z, 1.0f), new Vector4(0,1,0,0)),
-				new Points(new Vector4( width, -heigh, z, 1.0f), new Vector4(1,1,0,0)),
-                 new Points(new Vector4( width,  heigh, z, 1.0f), new Vector4(1,0,0,0))
+                new Points(new Vector4( width,  heigh, z, 1.0f), new Vector4(1,0,0,0)),
+                new Points(new Vector4( width, -heigh, z, 1.0f), new Vector4(1,1,0,0))
             };
         }
         public override void Draw()
         {
 			base.Draw();
-            UpdateContext(PrimitiveTopology.TriangleList);
+            UpdateContext(PrimitiveTopology.TriangleList,Utilities.SizeOf<Vector4>()*2);
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
 
             ResterizeStage();
             game.context.Draw(6, 0);
         }
-        public override void Initialize(Game game, string nameOfFile, bool IsLight)
-        {
-        }
+        
 
     }
 
