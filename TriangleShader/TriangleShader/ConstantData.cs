@@ -13,6 +13,6 @@ namespace GameFramework
         public Matrix World;
         public Matrix InvertWorld;
         public Vector4 ViewPos;
-
+        public Matrix InverseProjectionView;
     }
 }

@@ -44,7 +44,7 @@ namespace GameFramework
             UpdateContext(PrimitiveTopology.TriangleList,Utilities.SizeOf<Vector4>()*3);
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
             game.context.InputAssembler.SetVertexBuffers(0, BufferBinding);
-            ResterizeStage();
+           // ResterizeStage();
             game.context.Draw(verticesCount, 0);
         }
         public override void ShadowDraw()

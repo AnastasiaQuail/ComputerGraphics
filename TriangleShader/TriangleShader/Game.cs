@@ -37,6 +37,8 @@ namespace GameFramework
         public bool shadowFlag;
 
         public DepthStencilView depthView { get; set; }
+        internal DeferredRenderer DeferredRender { get; private set; }
+
         public Buffer lightBuffer;
         public LightCamera sceneLight;
         public SamplerState shadowSampler;
@@ -104,6 +106,8 @@ namespace GameFramework
             CreateShadowBuffer();
             CreateShadowSampler();
             CreateShadowView();
+
+           
         }
 
         public void Dispose()
@@ -129,6 +133,7 @@ namespace GameFramework
 
         public virtual void Run()
         {
+            DeferredRender = new DeferredRenderer(this);
             if (!IsActive)
             { Dispose(); return; }
             else
@@ -160,32 +165,34 @@ namespace GameFramework
                     context.ClearDepthStencilView(depthView, DepthStencilClearFlags.Depth, 1.0f, 0);
                     context.ClearRenderTargetView(renderView, Color.DarkSlateBlue);
 
-                    //Clear shadow map
-                    context.ClearDepthStencilView(shadowView, DepthStencilClearFlags.Depth, 1.0f, 0);
+                    ////Clear shadow map
+                    //context.ClearDepthStencilView(shadowView, DepthStencilClearFlags.Depth, 1.0f, 0);
 
-                    context.OutputMerger.SetTargets(shadowView, renderView);
+                    //context.OutputMerger.SetTargets(shadowView, renderView);
 
-                    foreach (var component in Components)
-                    {
-                        if (component.lightFlag)
-                        {
-                            //Draw components to shadowMap
-                            component.ShadowDraw();
-                        }
-                    }
+                    //foreach (var component in Components)
+                    //{
+                    //    if (component.lightFlag)
+                    //    {
+                    //        //Draw components to shadowMap
+                    //        component.ShadowDraw();
+                    //    }
+                    //}
                     context.OutputMerger.SetTargets(depthView, renderView);
 
-                    foreach (var component in Components)
-                    {
-                        //Update components
-                        component.Update();
-                    }
+                    DeferredRender.Render();
 
-                    //Drawing all components of the Game
-                    foreach (var component in Components)
-                    {
-                        component.Draw();
-                    }
+                    //foreach (var component in Components)
+                    //{
+                    //    //Update components
+                    //    component.Update();
+                    //}
+
+                    ////Drawing all components of the Game
+                    //foreach (var component in Components)
+                    //{
+                    //    component.Draw();
+                    //}
 
                 //Prresent all
                 swapChain.Present(0, PresentFlags.None);

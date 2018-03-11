@@ -148,7 +148,7 @@ namespace GameFramework
         {
             VPMatrix= ViewProj;
         }
-        private void UpdateRotationMatrix()
+        public void UpdateRotationMatrix()
         {
             // Create the rotation matrix from the yaw, pitch, and roll values.
             rotationMatrix = Matrix.RotationYawPitchRoll(yaw, pitch, roll);
@@ -161,7 +161,10 @@ namespace GameFramework
 		{
 			lookAt = look;
 		}
-
+        public Vector3 getLookAt()
+        {
+            return Position + rotationMatrix.Forward;
+        }
 
     }
 }

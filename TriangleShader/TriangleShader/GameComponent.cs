@@ -20,7 +20,7 @@ namespace GameFramework
         public Buffer vertexBuffer;
         public BufferDescription bufferDesc;
         public Matrix ViewProjMatrix;
-        public Matrix WorldViewProjMatrix, WorldMatrix,InvertWorld;
+        public Matrix WorldViewProjMatrix, WorldMatrix,InvertWorld, InvertVP;
         public Buffer constantBuffer,lightBuffer;
         public ShaderResourceView textureView;
         Texture2D texture;
@@ -37,6 +37,7 @@ namespace GameFramework
         public Buffer shadowVertexBuffer;
         public CompilationResult shadowVertexShaderBC;
         public VertexShader shadowVertexShader;
+        public int verticesCount;
 
         public struct Points
         {
@@ -58,6 +59,7 @@ namespace GameFramework
             nameOfShader = nameOfFile;
             device = game.device;
             context = game.context;
+            transform = new Transform();
             lightFlag = IsLight;
             textureLoader = new TextureLoader(game);
 
@@ -98,6 +100,7 @@ namespace GameFramework
             Matrix.Multiply(ref  WorldMatrix,ref ViewProjMatrix, out WorldViewProjMatrix);
 
             float cuurTime = game.clock.ElapsedMilliseconds;
+            // invert viweproj
             SetConstantData();
             float nextTime = game.clock.ElapsedMilliseconds;
 
@@ -171,6 +174,7 @@ namespace GameFramework
                 Usage = ResourceUsage.Default
             };
             vertexBuffer = Buffer.Create(device, AIStage(), bufferDesc);
+            verticesCount = AIStage().Length;
         }
 
         public virtual void UpdateContext(PrimitiveTopology topology, int vbSize )
@@ -280,10 +284,14 @@ namespace GameFramework
             InvertWorld = WorldMatrix;
             InvertWorld.Invert();
 
+            InvertVP = WorldViewProjMatrix;
+            InvertVP.Invert();
+
             constantData.World = WorldMatrix;
             constantData.InvertWorld = InvertWorld;
             constantData.WorldViewProj = WorldViewProjMatrix;
             constantData.ViewPos = new Vector4(transform.Position, 1);
+            constantData.InverseProjectionView = InvertVP;
 
             context.UpdateSubresource(ref constantData, constantBuffer);
         }

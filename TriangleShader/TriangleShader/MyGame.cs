@@ -11,7 +11,7 @@ namespace GameFramework
         {
             shadowFlag = true;
             sceneLight = new LightCamera(this);
-            sceneLight.setLightData(new Vector4(0, 0f, 3f, 1), (Vector4)Color.White);
+            sceneLight.setLightData(new Vector4(0, 0f, 12f, 1), (Vector4)Color.White);
             Components = new List<GameComponent>();
             Components.Add(sceneLight);
 
@@ -48,7 +48,7 @@ namespace GameFramework
             cubeMini.transform.Scale = 2f;
             cubeMini.transform.Position = new Vector3(10,10,0);
             cubeMini.SetTextureFile("Moon.jpg");
-            Components.Add(cubeMini);
+            //Components.Add(cubeMini);
 
             GameModelComp cow = new GameModelComp(this, "cow.obj");
             cow.SetTextureFile("cow.jpg");
@@ -60,17 +60,26 @@ namespace GameFramework
             cube.SetTextureFile("crate.jpg");
             cube.transform.Position += new Vector3(0f, 0f, -6f);
             cube.transform.Scale=10f;
-            Components.Add(cube);
+            //Components.Add(cube);
 
             GameModelComp cube2 = new GameModelComp(this, "cow.obj");
             cube2.SetTextureFile("cow.jpg");
-            cube2.transform.Position += new Vector3(2f, -2f, 0f);
-            cube2.transform.Scale = 2f;
+            cube2.transform.Position += new Vector3(0f, 0f, 0f);
+            cube2.transform.Scale = 0.2f;
             Components.Add(cube2);
 
             SurfaceComponent view = new ShadowView(this, 0.5f, 0.5f, Color4.Black);
             view.transform.Position += new Vector3(-0.8f, 0.8f, 0f);       //              исправить трансформацию, не работает
-            Components.Add(view);         
+           // Components.Add(view);
+
+            Cells lines = new Cells(this);
+            Components.Add(lines);
+
+            TriangleComponent triangle = new TriangleComponent(this);
+            Components.Add(triangle);
+
+            StreamComponent stream = new StreamComponent(this);
+           // Components.Add(stream);
         }
 
         public void Transformation(CubeComponent cube, Vector3 radius)

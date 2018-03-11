@@ -247,3 +247,4 @@ E:\Экзамен\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csprojR
 E:\Экзамен\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CoreCompileInputs.cache
 E:\Экзамен\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
 E:\Экзамен\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+C:\Users\User\OneDrive\ИТМО\GIT_Homeworks\TriangleShader\TriangleShader\bin\Debug\Shaders\BCDeffered.fx
