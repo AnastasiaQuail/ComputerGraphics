@@ -9,14 +9,12 @@ using System;
 
 namespace GameFramework
 {
-    public class GameModelComp:GameComponent
+    public class GameModelComp : GameComponent
     {
-       ObjLoader objLoader;
-        int verticesCount;
+        ObjLoader objLoader;
         string fileName;
-        private VertexBufferBinding BufferBinding;
+        public VertexBufferBinding BufferBinding;
         public GameComponent parent;
-        
 
         public GameModelComp(Game game, string filename)
         {
@@ -24,8 +22,8 @@ namespace GameFramework
             fileName = filename;
             objLoader = new ObjLoader();
             transform = new Transform();
-            nameOfShader = "Shaders/BCTextStruc.fx";
-            Initialize(game, "Shaders/BCTextStruc.fx",true);
+            nameOfShader = "Shaders/BCAmbient.fx";
+            Initialize(game, "Shaders/BCAmbient.fx", true);
             parent = null;
             constantData = new ConstantData();
 
@@ -36,21 +34,23 @@ namespace GameFramework
         {
             //Create VertexBuffer  
             objLoader.LoadObjModel(fileName, out vertexBuffer, out verticesCount, game);
-            BufferBinding = new VertexBufferBinding(vertexBuffer,48,0);
+            BufferBinding = new VertexBufferBinding(vertexBuffer, 48, 0);
         }
         public override void Draw()
         {
-			base.Draw();
-            UpdateContext(PrimitiveTopology.TriangleList,Utilities.SizeOf<Vector4>()*3);
+            base.Draw();
+            UpdateContext(PrimitiveTopology.TriangleList, Utilities.SizeOf<Vector4>() * 3);
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
+            game.context.VertexShader.SetConstantBuffer(1, game.lightBuffer);
+            game.context.PixelShader.SetConstantBuffer(1, game.lightBuffer);
             game.context.InputAssembler.SetVertexBuffers(0, BufferBinding);
-           // ResterizeStage();
+            ResterizeStage();
             game.context.Draw(verticesCount, 0);
         }
         public override void ShadowDraw()
         {
             base.ShadowDraw();
-           // UpdateShadow();
+            // UpdateShadow();
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
             game.context.InputAssembler.SetVertexBuffers(0, BufferBinding);
             ResterizeStage();
@@ -86,6 +86,7 @@ namespace GameFramework
                     new InputElement("NORMAL",0,Format.R32G32B32A32_Float,16,0),
                     new InputElement("TEXCOORD",0,Format.R32G32B32A32_Float,32,0),
                });
+            vbSize = Utilities.SizeOf<Vector4>() * 3;
         }
     }
 }

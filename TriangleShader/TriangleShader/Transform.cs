@@ -260,12 +260,10 @@ namespace GameFramework
         }
         public Matrix GetWorldMatrix()
         {
-            RotationX = MathUtil.DegreesToRadians(RotationX);
-            RotationY = MathUtil.DegreesToRadians(RotationY);
-            RotationZ = MathUtil.DegreesToRadians(RotationZ);
-            //   if ((this.Position == new Vector3(0, 0, 0)) && (RotationX == 0) && (RotationY == 0))
-                                                             //     return Matrix.Identity;
-                                                             // else
+            
+         //   if ((this.Position == new Vector3(0, 0, 0)) && (RotationX == 0) && (RotationY == 0))
+           //     return Matrix.Identity;
+           // else
             {
                 //
                 WorldMatrix = Matrix.Scaling(Scale) * Matrix.RotationX(RotationX) * Matrix.RotationY(RotationY) * Matrix.RotationZ(RotationZ) * Matrix.Translation(Position.X, Position.Y, Position.Z);

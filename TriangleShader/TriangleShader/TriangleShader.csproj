@@ -14,7 +14,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,7 +22,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -78,10 +79,10 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Cells.cs" />
     <Compile Include="ConstantData.cs" />
+    <Compile Include="DeferredRenderer.cs" />
     <Compile Include="ForwardRenderer.cs" />
     <Compile Include="GameModelComp.cs" />
     <Compile Include="GameText.cs" />
-    <Compile Include="ICamera.cs" />
     <Compile Include="LightCamera.cs" />
     <Compile Include="LightData.cs" />
     <Compile Include="Material.cs" />
@@ -98,9 +99,10 @@
     <Compile Include="PongBall.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DeferredRenderer.cs" />
     <Compile Include="Render.cs" />
     <Compile Include="ShadowView.cs" />
+    <Compile Include="ShadowVolumeComponent.cs" />
+    <Compile Include="ShadowVolumeCube.cs" />
     <Compile Include="StreamComponent.cs" />
     <Compile Include="SurfaceComponent.cs" />
     <Compile Include="SurfacePlane.cs" />
@@ -114,7 +116,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Shaders\BCAmbient.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Shaders\BCDeffered.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shaders\BCDefferedLight.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Shaders\BCLight.fx">
@@ -129,8 +137,11 @@
     <Content Include="Shaders\BCTriangle.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Shaders\BCJustLight.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Shaders\GeometryShader.fx" />
-    <Content Include="Shaders\StreamView.fx" />
+    <Content Include="Shaders\BCShadowVolume.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

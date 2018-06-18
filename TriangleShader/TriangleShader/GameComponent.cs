@@ -14,20 +14,26 @@ namespace GameFramework
     {
         public Game game;
         public InputLayout layout;
+
+        public int vbSize { get; set; }
+
         public VertexShader vertexShader;
         public PixelShader pixelShader;
         public CompilationResult vertexShaderBC, pixelShaderBC;
         public Buffer vertexBuffer;
+
+        public int verticesCount;
+
         public BufferDescription bufferDesc;
         public Matrix ViewProjMatrix;
-        public Matrix WorldViewProjMatrix, WorldMatrix,InvertWorld, InvertVP;
+        public Matrix WorldViewProjMatrix, WorldMatrix,InvertWorld;
         public Buffer constantBuffer,lightBuffer;
         public ShaderResourceView textureView;
         Texture2D texture;
         SamplerState sampler;
         public Transform transform;
         public string textureFile;
-        private TextureLoader textureLoader;
+        public TextureLoader textureLoader;
         public ConstantData constantData;
         public bool lightFlag;
         public SharpDX.Direct3D11.Device device;
@@ -37,11 +43,15 @@ namespace GameFramework
         public Buffer shadowVertexBuffer;
         public CompilationResult shadowVertexShaderBC;
         public VertexShader shadowVertexShader;
-        public int verticesCount;
+        public RasterizerState rasterState;
+        private CompilationResult lightShaderBC;
+
+        public PixelShader lightPixelShader { get; private set; }
+        public VertexShader lightVertexShader { get; private set; }
 
         public struct Points
         {
-            private Vector4 vector4;
+            public Vector4 vector4 { get; set; }
             private Vector4 vector2;
 
             public Points(Vector4 vector4, Vector4 vector2) : this()
@@ -59,7 +69,6 @@ namespace GameFramework
             nameOfShader = nameOfFile;
             device = game.device;
             context = game.context;
-            transform = new Transform();
             lightFlag = IsLight;
             textureLoader = new TextureLoader(game);
 
@@ -76,9 +85,22 @@ namespace GameFramework
             if (lightFlag)
             {
                 CreateShadowVertexBuffer();
+                CreateLightPixelShader();
+                CreateLightVertexShader();
             }
 
+            CreateRasterizwState();
+        }
 
+        public void CreateRasterizwState()
+        {
+            rasterState = new RasterizerState(device, new RasterizerStateDescription
+            {
+                CullMode = CullMode.Back,
+                FillMode = FillMode.Solid,
+                DepthBias = 10,
+                SlopeScaledDepthBias = 0.0001f
+            });
         }
 
         private void CreateShadowVertexBuffer()
@@ -100,11 +122,11 @@ namespace GameFramework
             Matrix.Multiply(ref  WorldMatrix,ref ViewProjMatrix, out WorldViewProjMatrix);
 
             float cuurTime = game.clock.ElapsedMilliseconds;
-            // invert viweproj
             SetConstantData();
             float nextTime = game.clock.ElapsedMilliseconds;
 
             transform.SetFrameTime(nextTime-cuurTime);
+
         }
         public virtual void Draw() {
             
@@ -152,6 +174,7 @@ namespace GameFramework
                     new InputElement("POSITION",0,Format.R32G32B32A32_Float,0,0),
                     new InputElement("TEXCOORD",0,Format.R32G32B32A32_Float,16,0),
                    });
+            vbSize = Utilities.SizeOf<Vector4>() * 2;
         }
         public virtual void CreateConstantBuffer()
         {
@@ -223,18 +246,16 @@ namespace GameFramework
             context.PixelShader.Set(null);
             context.VertexShader.SetConstantBuffer(0, constantBuffer);
             context.VertexShader.SetConstantBuffer(1, game.lightBuffer);
+            if (lightFlag)
+            {
+                game.context.UpdateSubresource(ref game.sceneLight.light, game.lightBuffer);
+            }
         }
 
         public virtual void ResterizeStage()
         {
             //Resterizer Stage
-            context.Rasterizer.State = new RasterizerState(device, new RasterizerStateDescription
-            {
-                CullMode = CullMode.Back,
-                FillMode = FillMode.Solid,
-                DepthBias = 10,
-                SlopeScaledDepthBias = 0.0001f
-            });
+            context.Rasterizer.State = rasterState;
             
         }
 
@@ -278,22 +299,36 @@ namespace GameFramework
             CreateTextureSampler();
 
         }
-        public void SetConstantData()
+        public virtual void SetConstantData()
         {
             //Set data
             InvertWorld = WorldMatrix;
             InvertWorld.Invert();
 
-            InvertVP = WorldViewProjMatrix;
-            InvertVP.Invert();
-
             constantData.World = WorldMatrix;
             constantData.InvertWorld = InvertWorld;
             constantData.WorldViewProj = WorldViewProjMatrix;
             constantData.ViewPos = new Vector4(transform.Position, 1);
-            constantData.InverseProjectionView = InvertVP;
 
             context.UpdateSubresource(ref constantData, constantBuffer);
+        }
+        public void CreateLightPixelShader()
+        {
+            try
+            {
+                lightShaderBC = ShaderBytecode.CompileFromFile("Shaders/BCJustLight.fx", "PSMain", "ps_5_0", ShaderFlags.PackMatrixRowMajor);
+            }
+            catch (ArgumentNullException e) { Console.WriteLine(e.Message); }
+            lightPixelShader = new PixelShader(device, lightShaderBC);
+        }
+        public void CreateLightVertexShader()
+        {
+            try
+            {
+                lightShaderBC = ShaderBytecode.CompileFromFile("Shaders/BCJustLight.fx", "VSMain", "vs_5_0", ShaderFlags.PackMatrixRowMajor);
+            }
+            catch (ArgumentNullException e) { Console.WriteLine(e.Message); }
+            lightVertexShader = new VertexShader(device, lightShaderBC);
         }
     }
 }

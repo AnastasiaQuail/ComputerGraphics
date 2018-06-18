@@ -33,5 +33,5 @@ void GSStream(point GS_IN input[1], inout TriangleStream<GS_IN> stream) {
 	stream.Append(p1);
 	stream.Append(p2);
 
-	stream.RestartStrip();
+//	stream.RestartStrip();
 }

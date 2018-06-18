@@ -132,8 +132,8 @@ namespace GameFramework
            
             Vector2 curentMPos = input.MousePositionLocal;
 
-            yaw += MathUtil.DegreesToRadians(eventArgs.Offset.X) * delta*2f;
-            pitch -= MathUtil.DegreesToRadians(eventArgs.Offset.Y) * delta*2f;
+            yaw += MathUtil.DegreesToRadians(eventArgs.Offset.X) * delta*5f;
+            pitch -= MathUtil.DegreesToRadians(eventArgs.Offset.Y) * delta*5f;
 
             if (Math.Abs(pitch) > 60)
                 pitch = 60f*Math.Sign(pitch);
@@ -148,7 +148,7 @@ namespace GameFramework
         {
             VPMatrix= ViewProj;
         }
-        public void UpdateRotationMatrix()
+        private void UpdateRotationMatrix()
         {
             // Create the rotation matrix from the yaw, pitch, and roll values.
             rotationMatrix = Matrix.RotationYawPitchRoll(yaw, pitch, roll);
@@ -161,10 +161,7 @@ namespace GameFramework
 		{
 			lookAt = look;
 		}
-        public Vector3 getLookAt()
-        {
-            return Position + rotationMatrix.Forward;
-        }
+
 
     }
 }

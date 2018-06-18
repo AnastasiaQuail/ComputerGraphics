@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharpDX.D3DCompiler;
 
 namespace GameFramework
 {
@@ -55,7 +56,19 @@ namespace GameFramework
             ResterizeStage();
             game.context.Draw(6, 0);
         }
-        
+        public override void CreateLayout()
+        {
+            //Create layout
+            layout = new InputLayout(game.device,
+                ShaderSignature.GetInputSignature(vertexShaderBC),
+                new[]
+                {
+                    new InputElement("POSITION",0,Format.R32G32B32A32_Float,0,0),
+                    new InputElement("TEXCOORD",0,Format.R32G32B32A32_Float,16,0),
+                });
+            vbSize = Utilities.SizeOf<Vector4>() * 2;
+        }
+
 
     }
 

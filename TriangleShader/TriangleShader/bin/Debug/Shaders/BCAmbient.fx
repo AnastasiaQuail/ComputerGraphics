@@ -1,4 +1,4 @@
-Texture2D Picture : register(t0);
+﻿Texture2D Picture : register(t0);
 SamplerState Sampler : register(s0);
 
 Texture2D ShadowMap : register(t1);
@@ -11,19 +11,9 @@ struct ConstData
 	float4x4 InvertWorld;
 	float4 ViewPos;
 };
-struct LightData
-{
-	float4 pos : POSITION;
-	float4 col : COLOR;
-	float4x4 ViewProj;
-};
 cbuffer VS_CONSTANT_BUFFER : register(b0)
 {
 	ConstData data;
-};
-cbuffer Light_CONSTANT_BUFFER : register(b1)
-{
-	LightData light;
 };
 struct VS_IN
 {
@@ -37,7 +27,6 @@ struct PS_IN
 	float4 norm : NORMAL;
 	float4 tex : TEXCOORD0;
 	float4 posWorld : TEXCOORD1;
-	float4 posLight : TEXCOORD2;
 
 };
 PS_IN VSMain(VS_IN input)
@@ -48,32 +37,15 @@ PS_IN VSMain(VS_IN input)
 	output.norm = normalize(mul(input.norm, data.InvertWorld));
 	output.tex = input.tex;
 	output.posWorld = mul(float4(input.pos.xyz, 1.0f), data.World);
-	float4x4 lightWorldViewProj = mul(data.World, light.ViewProj);
-	float4 posLight = mul(float4(input.pos.xyz, 1.0f), lightWorldViewProj);
-	posLight = posLight / posLight.w;
-	output.posLight = posLight;
 
 	return output;
 }
 float4 PSMain(PS_IN input) : SV_Target
 {
-	float3 l;
-	float diffuse;
-	float4 result;
-	float3 light_pos = light.pos.xyz;
-	float3 normal = input.norm.xyz;
-	float ambient = 0.1f;
+float4 result;
+float ambient = 0.1f;
 
-l = normalize(light.pos - input.posWorld);
-diffuse = max(0, dot(l,normal));
 float4 kd = Picture.Sample(Sampler, input.tex.xy);
-float4 depth = ShadowMap.Sample(ShadowSampler, float2((input.posLight.x + 1)*0.5f, ((input.posLight.y + 1)*0.5f)));
-
-result = kd*(diffuse+ambient)*light.col;
- if (input.posLight.z > depth.r)
-{
-	result = kd*ambient*light.col;
-}
-
+result = kd*ambient;
 return float4(result.rgb,1.0f);
 }

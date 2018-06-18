@@ -4,7 +4,7 @@ using SharpDX.WIC;
 
 namespace GameFramework
 {
-    class TextureLoader
+    public class TextureLoader
     {
         Game game;
         public ImagingFactory Factory { protected set; get; }

@@ -16,13 +16,13 @@ namespace GameFramework
         {
             this.game = game;
             transform = new Transform();
-            Initialize(game, "Shaders/BCTriangle.fx", false);
+            Initialize(game, "Shaders/BCTriangle.fx",false);
         }
 
         public override void Draw()
         {
             UpdateContext(PrimitiveTopology.LineList, Utilities.SizeOf<Vector4>() * 2);
-
+           
             game.context.VertexShader.SetConstantBuffer(0, constantBuffer);
 
             ResterizeStage();
@@ -32,9 +32,9 @@ namespace GameFramework
         public override Points[] AIStage()
         {
             List<Points> pointsList = new List<Points>();
-            for (int i = -500; i < 500; i += 10)
+            for (int i = -500; i < 500; i+=10)
             {
-                pointsList.Add(new Points(new Vector4(-500f, 0f, i, 1f), new Vector4(0, 1, 0.2f, 0)));
+                pointsList.Add(new Points(new Vector4(-500f, 0f, i, 1f),new Vector4(0, 1, 0.2f, 0)));
                 pointsList.Add(new Points(new Vector4(500f, 0f, i, 1f), new Vector4(0, 1, 0.2f, 0)));
 
                 pointsList.Add(new Points(new Vector4(i, 0f, -500f, 1f), new Vector4(0, 1, 0.2f, 0)));

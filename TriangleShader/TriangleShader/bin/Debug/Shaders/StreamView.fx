@@ -23,7 +23,7 @@ PS_IN VSMain(VS_IN input)
 {
 	PS_IN output = (PS_IN)0;
 
-	output.pos = input.pos;
+	output.pos = mul(input.pos, data.WorldViewProj);
 	output.col = input.col;
 
 	return output;

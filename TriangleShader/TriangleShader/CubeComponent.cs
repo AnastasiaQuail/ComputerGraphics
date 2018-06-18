@@ -87,7 +87,7 @@ namespace GameFramework
         public virtual void Transformation()
         {
             var time = game.clock.ElapsedMilliseconds * 0.001f;
-           transform.SetPosition(30f, (float)Math.Cos(time) * 50f, 0f);
+           transform.SetPosition(0f, (float)Math.Cos(time) * 50f, 0f);
 
         }
 

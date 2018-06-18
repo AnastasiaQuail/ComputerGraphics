@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameFramework
 {
-    class ForwardRenderer
+    class ForwardRenderer:Render
     {
         Game game;
         public ForwardRenderer(Game gameObj)
@@ -17,7 +17,7 @@ namespace GameFramework
             game = gameObj;
 
         }
-        public void Render()
+        public override void goRender()
         {
             game.context.ClearDepthStencilView(game.depthView, DepthStencilClearFlags.Depth, 1.0f, 0);
             game.context.ClearRenderTargetView(game.renderView, Color.DarkSlateBlue);
@@ -38,6 +38,7 @@ namespace GameFramework
             //Prresent all
             game.swapChain.Present(0, PresentFlags.None);
         }
+
 
     }
 }

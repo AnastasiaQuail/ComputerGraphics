@@ -1,4 +1,4 @@
-Texture2D Picture : register(t0);
+﻿Texture2D Picture : register(t0);
 SamplerState Sampler : register(s0);
 
 Texture2D ShadowMap : register(t1);
@@ -58,22 +58,18 @@ PS_IN VSMain(VS_IN input)
 float4 PSMain(PS_IN input) : SV_Target
 {
 	float3 l;
-	float diffuse;
-	float4 result;
-	float3 light_pos = light.pos.xyz;
-	float3 normal = input.norm.xyz;
-	float ambient = 0.1f;
+float diffuse;
+float4 result;
+float3 light_pos = light.pos.xyz;
+float3 normal = input.norm.xyz;
 
 l = normalize(light.pos - input.posWorld);
 diffuse = max(0, dot(l,normal));
 float4 kd = Picture.Sample(Sampler, input.tex.xy);
 float4 depth = ShadowMap.Sample(ShadowSampler, float2((input.posLight.x + 1)*0.5f, ((input.posLight.y + 1)*0.5f)));
 
-result = kd*(diffuse+ambient)*light.col;
- if (input.posLight.z > depth.r)
-{
-	result = kd*ambient*light.col;
-}
+result = kd*(diffuse)*light.col;
+
 
 return float4(result.rgb,1.0f);
 }
