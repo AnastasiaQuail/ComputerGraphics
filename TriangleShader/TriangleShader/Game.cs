@@ -33,7 +33,7 @@ namespace GameFramework
         public Stopwatch clock {get;set; }
         private Texture2D zBuffer;
         private Texture2D stencilBuffer;
-        DepthStencilState depthState;
+        public DepthStencilState depthState;
         public Texture2D shadowBuffer;
         public DepthStencilView shadowView;
         public bool shadowFlag;
@@ -286,6 +286,7 @@ namespace GameFramework
                 Dimension = DepthStencilViewDimension.Texture2D,
                 Flags = DepthStencilViewFlags.None
             });
+
         }
         public void CreateShadowSampler()
         {

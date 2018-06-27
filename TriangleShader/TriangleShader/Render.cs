@@ -17,6 +17,7 @@ namespace GameFramework
         Game game;
         public RasterizerStateDescription stateDescription;
         public  RasterizerState frontRasterizer, backRasterizer;
+        private RasterizerStateDescription stateDescriptionFront;
         public  DepthStencilState depthStencilState;
         public  BlendState blendState;
         public RenderTargetBlendDescription renderTargetBlendDescription;
@@ -37,7 +38,6 @@ namespace GameFramework
 
         public DepthStencilState depthStateZBuf { get;set; }
 
-        public BlendState addblendState;
 
         public void Initialize(Game game)
         {
@@ -48,14 +48,21 @@ namespace GameFramework
                 FillMode = FillMode.Solid
             };
             backRasterizer = new RasterizerState(game.device, stateDescription);
-            stateDescription.CullMode = CullMode.Front;
-            frontRasterizer = new RasterizerState(game.device, stateDescription);
+            stateDescriptionFront = new RasterizerStateDescription
+            {
+                CullMode = CullMode.Front,
+                FillMode = FillMode.Solid,
+                IsDepthClipEnabled = false
+            };
+            frontRasterizer = new RasterizerState(game.device, stateDescriptionFront);
             depthStencilState = new DepthStencilState(game.device, new DepthStencilStateDescription
             {
                 IsDepthEnabled = true,
                 DepthWriteMask = DepthWriteMask.Zero,
                 IsStencilEnabled = true,
                 DepthComparison = Comparison.Greater,
+                StencilWriteMask = 0xff,
+                StencilReadMask = 0x00,
                 FrontFace = new DepthStencilOperationDescription
                 {
                     Comparison = Comparison.Equal,
@@ -73,28 +80,26 @@ namespace GameFramework
             });
             depthStencilState2 = new DepthStencilState(game.device, new DepthStencilStateDescription
             {
-                IsDepthEnabled = false,
+                IsDepthEnabled = true,
                 DepthWriteMask = DepthWriteMask.Zero,
                 IsStencilEnabled = true,
                 DepthComparison = Comparison.GreaterEqual,
+                StencilWriteMask = 0x00,
+                StencilReadMask = 0xff,
                 FrontFace = new DepthStencilOperationDescription
                 {
                     Comparison = Comparison.Equal,
                     PassOperation = StencilOperation.Keep,
                     FailOperation = StencilOperation.Keep,
-                    DepthFailOperation = StencilOperation.Keep
+                    DepthFailOperation = StencilOperation.Increment
                 },
                 BackFace = new DepthStencilOperationDescription
                 {
                     Comparison = Comparison.Always,
-                    PassOperation = StencilOperation.DecrementAndClamp,
+                    PassOperation = StencilOperation.Keep,
                     FailOperation = StencilOperation.Keep,
-                    DepthFailOperation = StencilOperation.Keep
+                    DepthFailOperation = StencilOperation.Decrement
                 }
-            });
-            depthStateNoZBuf = new DepthStencilState(game.device, new DepthStencilStateDescription
-            {
-                IsDepthEnabled = false
             });
             depthStateZBuf = new DepthStencilState(game.device, new DepthStencilStateDescription
             {
@@ -109,9 +114,11 @@ namespace GameFramework
 
             });
             blandStateDescr = new BlendStateDescription();
-            renderTargetBlendDescription = new RenderTargetBlendDescription(true, BlendOption.One, BlendOption.One, BlendOperation.Add, BlendOption.Zero, BlendOption.Zero, BlendOperation.Add, ColorWriteMaskFlags.All);
+            renderTargetBlendDescription = new RenderTargetBlendDescription(true, BlendOption.SourceAlpha, BlendOption.One, BlendOperation.Add, BlendOption.Zero, BlendOption.Zero, BlendOperation.Add, ColorWriteMaskFlags.All);
             blandStateDescr.RenderTarget[0] = renderTargetBlendDescription;
-            addblendState = new BlendState(game.device, blandStateDescr);
+            addBlendState = new BlendState(game.device, blandStateDescr);
+
+
             blendState = new BlendState(game.device, new BlendStateDescription());
             blendStateDescription = new RenderTargetBlendDescription
             {

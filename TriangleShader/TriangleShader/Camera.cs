@@ -90,7 +90,7 @@ namespace GameFramework
 
             // Finally create the view matrix from the three updated vectors.
             ViewMatrix = Matrix.LookAtLH(Position, lookAt, up);
-            ProjMatrix = Matrix.PerspectiveFovLH(MathUtil.DegreesToRadians(90), 1f, 0.1f, 1000f);
+            ProjMatrix = Matrix.PerspectiveFovLH(MathUtil.DegreesToRadians(90), 1f, 0.01f, 1000f);
             
             ViewProj = Matrix.Multiply(ViewMatrix, ProjMatrix);
 
@@ -147,6 +147,10 @@ namespace GameFramework
         public void GetVPMatrix(out Matrix VPMatrix)
         {
             VPMatrix= ViewProj;
+        }
+        public void GetProjectionMatrix(out Matrix PMatrix)
+        {
+            PMatrix = this.ProjMatrix;
         }
         private void UpdateRotationMatrix()
         {

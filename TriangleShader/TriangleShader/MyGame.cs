@@ -50,23 +50,23 @@ namespace GameFramework
             //cubeMini.SetTextureFile("Moon.jpg");
             // Components.Add(cubeMini);
 
-            //GameModelComp cow = new GameModelComp(this, "cow.obj");
-            //cow.SetTextureFile("cow.jpg");
-            //cow.transform.Scale = 5f;
-            //cow.transform.Position += new Vector3(30f, -15f, 0);
-            //Components.Add(cow);
+            GameModelComp cow = new GameModelComp(this, "cow.obj");
+            cow.SetTextureFile("cow.jpg");
+            cow.transform.Scale = 10f;
+            cow.transform.Position += new Vector3(20f, -10f, 0);
+            Components.Add(cow);
 
             GameModelComp cube = new GameModelComp(this,"crate.obj");
             cube.SetTextureFile("crate.jpg");
-            cube.transform.Position += new Vector3(0f, 0f, -15f);
-            cube.transform.Scale=10f;
+            cube.transform.Position += new Vector3(0f, 0f, -19f);
+            cube.transform.Scale=20f;
             Components.Add(cube);
 
-            //GameModelComp cube2 = new GameModelComp(this, "cow.obj");
-            //cube2.SetTextureFile("cow.jpg");
-            //cube2.transform.Position += new Vector3(2f, -2f, 0f);
-            //cube2.transform.Scale = 2f;
-          //  Components.Add(cube2);
+            GameModelComp ground = new GameModelComp(this, "crate.obj");
+            ground.SetTextureFile("Rockwall.jpg");
+            ground.transform.Scale = 100f;
+            ground.transform.Position += new Vector3(0.0f, -70.0f, 50.0f);
+            Components.Add(ground);
 
             SurfaceComponent view = new ShadowView(this, 0.5f, 0.5f, Color4.Black);
             view.transform.Position += new Vector3(-0.8f, 0.8f, 0f);       //              исправить трансформацию, не работает

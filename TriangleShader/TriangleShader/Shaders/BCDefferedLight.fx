@@ -27,6 +27,12 @@ cbuffer Light_CONSTANT_BUFFER : register(b1)
 {
     LightData light;
 };
+struct VS_IN
+{
+    float4 pos : POSITION;
+    float4 norm : NORMAL;
+    float4 tex : TEXCOORD;
+};
 
 struct PS_IN
 {
@@ -39,10 +45,10 @@ struct PS_IN_Light
     float2 tex : TEXCOORD0;
     float4 posLight : TEXCOORD1;
 };
-float4 ScreenToView(float4 screen, PS_IN_Light vIn)
+float4 ScreenToView(float4 screen, float2 tex)
 {
     float2 texCoord = screen.xy / 800.f;
-    float4 clip = float4(float2(vIn.tex.x, 1.0f - vIn.tex.y) * 2.0f - 1.0f, screen.z, screen.w);
+    float4 clip = float4(float2(tex.x, 1.0f - tex.y) * 2.0f - 1.0f, screen.z, screen.w);
 	// View space position.
     float4 view = mul(data.InverseProjectionView, clip);
 	// Perspective projection.
@@ -53,25 +59,24 @@ PS_IN VSMain(uint id: SV_VertexID)
 {
     PS_IN output = (PS_IN) 0;
 
+	output.tex = float2((id << 1) & 2, id & 2);
     output.pos = float4(output.tex * float2(2, -2) + float2(-1, 1), 0, 1);
-    output.tex = float2((id << 1) & 2, id & 2);
-
+    
     return output;
 }
-float4 PSMain(PS_IN input) : SV_Target
+float4 PSMain(PS_IN input) : SV_Target0
 {
-    //float4 ambient = TexDiffuse.Sample(Sampler, input.tex.xy);
-    float4 ambient = TexNormal.Sample(Sampler, input.tex.xy);
-    //float4 result  = float4(ambient.rgb, 1.0f);
-	float4 result = float4(1.0f,0.0f,0.0f, 1.0f);
+    float4 ambient = TexDiffuse.Sample(Sampler, input.tex.xy);
+	ambient = ambient * 0.5f;
+    float4 result  = float4(ambient.rgb, 1.0f);
     return result;
 }
-PS_IN_Light LightingVS(uint id : SV_VertexID)
+PS_IN_Light LightingVS(VS_IN input)
 {
     PS_IN_Light output = (PS_IN_Light) 0;
 
-    output.pos = float4(output.tex * float2(2, -2) + float2(-1, 1), 0, 1);
-    output.tex = float2((id << 1) & 2, id & 2);
+    output.pos = mul(float4(input.pos.xyz, 1.0f), data.WorldViewProj);
+    output.tex = input.tex;
     float4x4 lightWorldViewProj = mul(data.World, light.ViewProj);
     float4 posLight = mul(float4(output.pos.xyz, 1.0f), lightWorldViewProj);
     posLight = posLight / posLight.w;
@@ -79,33 +84,61 @@ PS_IN_Light LightingVS(uint id : SV_VertexID)
     return output;
 }
 
-float4 LightingPS(PS_IN_Light pIn) : SV_Target
+float4 LightingPS(PS_IN_Light pIn) : SV_Target0
 {
     float4 light_pos = pIn.posLight;
-    float4 normal = ScreenToView(TexNormal.Sample(Sampler, pIn.tex.xy), pIn);
-    float4 ambient = TexDiffuse.Sample(Sampler, pIn.tex.xy);
+    float4 eyePos = { 0, 0, 0, 1 };
+    
+    float4 ambient = TexDiffuse.Load(int3(pIn.pos.xy,0));
     float4 specular;
     float4 diffuse;
     float4 l;
-    float4 posWorld = ScreenToView(TexPosition.Sample(Sampler, pIn.tex.xy), pIn);
+	float4 tex = TexPosition.Load(int3(pIn.pos.xy,0));
+	float depth = tex.z;
+    float4 P = ScreenToView(float4(tex.xy,depth,1.0f), pIn.pos);
+	float4 normal = TexNormal.Load(int3(tex.xy,0));
     float4 color;
 
-    if (length(normal) > 0.0f)
-    {
-        float4 V = data.ViewPos - pIn.pos;
-        float4 L = light_pos + float4(0.f, 0.f, -1.f, 0.f);
-        float4 R = normalize(reflect(-L, normal));
-        float RdotV = max(dot(R, V), 0);
-        specular = light.col * pow(RdotV, 200.f);
+	if (length(normal) > 0.0f)
+	{
+		float4 V = normalize(eyePos - P);
+		float4 L = light_pos + float4(0.f, 0.f, -1.f, 0.f);
+		float4 R = normalize(reflect(-L, normal));
+		float RdotV = max(dot(R, V), 0);
+		specular = light.col * RdotV;
 
-        l = normalize(light.pos - posWorld);
-        diffuse = max(0, dot(l, normal));
+		l = normalize(light.pos - P);
+		diffuse = max(0, dot(l, normal));
 
-        float4 colorLinear = diffuse * ambient + specular;
-        color = float4(pow(colorLinear, float4(1.0f / 2.2f, 1.0f / 2.2f, 1.0f / 2.2f, 0.f)));
-        return color;
-    }
+		float4 colorLinear = diffuse * ambient + specular;
+		color = float4(pow(colorLinear, float4(1.0f / 2.2f, 1.0f / 2.2f, 1.0f / 2.2f, 1.f)));
+		return color;
+	}
 
     color = ambient;
     return color;
 }
+float4 PSDirect(PS_IN pIn) : SV_Target0
+{
+	float4 ambient = TexDiffuse.Sample(Sampler, pIn.tex.xy);
+	float4 diffuse;
+	float4 l;
+	float4 pos = TexPosition.Sample(Sampler, pIn.tex.xy);
+	float4 normal = TexNormal.Sample(Sampler, pIn.tex.xy);
+	float4 color;
+	/*if (length(normal) > 0.0f)
+	{*/
+		l = normalize(light.pos - pos);
+		diffuse = max(0, dot(l, normal));
+
+		float4 result = ambient * (diffuse)*light.col;
+		return float4(result.rgb, 1.0f);
+	/*}
+	else {
+		return float4(0.0f, 0.0f, 0.0f, 1.0f);
+	}*/
+	
+}
+
+
+

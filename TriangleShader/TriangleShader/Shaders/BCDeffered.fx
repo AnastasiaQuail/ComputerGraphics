@@ -4,7 +4,6 @@ Texture2D Picture : register(t0);
 Texture2D TexDiffuse: register(t1);
 Texture2D TexNormal :register(t2);
 Texture2D TexPosition: register(t3);
-
 struct ConstData
 {
 	float4x4 WorldViewProj;
@@ -39,8 +38,6 @@ struct VS_OUT
     float4 pos : SV_POSITION; ////
     float4 norm : NORMAL;
     float4 tex : TEXCOORD0;
-    float4 posWorld : TEXCOORD1;
-    float4 posLight : TEXCOORD2;
 };
 
 
@@ -60,14 +57,12 @@ VS_OUT VSMain(VS_IN vIn)
 	VS_OUT vOut = (VS_OUT) 0;
 
 	vOut.pos = mul(float4(vIn.pos.xyz, 1.0f), data.WorldViewProj);
-	//vOut.pos = float4(vIn.pos.xyz, 1.0f);
 	vOut.norm = normalize(mul(vIn.norm, data.InvertWorld));
-	vOut.tex = vIn.tex;
-	vOut.posWorld = mul(float4(vIn.pos.xyz, 1.0f), data.World);
+	vOut.tex = vIn.tex;/*
 	float4x4 lightWorldViewProj = mul(data.World, light.ViewProj);
 	float4 posLight = mul(float4(vIn.pos.xyz, 1.0f), lightWorldViewProj);
 	posLight = posLight / posLight.w;
-	vOut.posLight = posLight;
+	vOut.posLight = posLight;*/
 
 	return vOut;
 }

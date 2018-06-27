@@ -23,7 +23,7 @@ namespace GameFramework
             objLoader = new ObjLoader();
             transform = new Transform();
             nameOfShader = "Shaders/BCAmbient.fx";
-            Initialize(game, "Shaders/BCAmbient.fx", true);
+            Initialize(game, nameOfShader, true);
             parent = null;
             constantData = new ConstantData();
 

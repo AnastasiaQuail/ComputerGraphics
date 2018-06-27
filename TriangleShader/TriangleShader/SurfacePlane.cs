@@ -46,8 +46,8 @@ namespace GameFramework
             lightFlag = false;
             textureLoader = new TextureLoader(game);
 
-           // createLightVertexShader("Shaders/BCDefferedLight.fx");
-            //createLightPixelShader("Shaders/BCDefferedLight.fx");
+            createLightVertexShader("Shaders/BCDefferedLight.fx");
+            createLightPixelShader("Shaders/BCDefferedLight.fx");
             createVertexShader("Shaders/BCDefferedLight.fx");
             createPixelShader("Shaders/BCDefferedLight.fx");
 

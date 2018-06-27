@@ -29,6 +29,7 @@ namespace GameFramework
         private CompilationResult vertexShaderBC;
         private VertexShader vertexShader;
         private CompilationResult pixelShaderBC;
+        private PixelShader directPS;
         private PixelShader pixelShader;
         private CompilationResult lightVertexShaderBC;
         private VertexShader lightVertexShader;
@@ -39,18 +40,23 @@ namespace GameFramework
         private VertexBufferBinding vertexBufBinding;
         private RenderTargetView[] renderTargets;
         SurfacePlane screen;
-        private GameModelComp sphere;
+        private LightVolume sphere;
         private VertexBufferBinding comVertexBufBinding;
         private GameModelComp src;
+        private DepthStencilStateDescription ssDescription;
+        private DepthStencilState depthStateDefault;
+        LightCamera directLight;
+        private VertexShader directVS;
 
         public DeferredRenderer(Game gameObj)
         {
             game = gameObj;
             lightList = new List<LightCamera> {game.sceneLight};
-            sphere = new GameModelComp(game, "earth.obj");
+            sphere = new LightVolume(game, "earth.obj", 5f);
             Vector4 pos = lightList[0].light.Position;
             sphere.transform.Position = new Vector3(pos.X, pos.Y, pos.Z);
             sphere.SetTextureFile("Moon.jpg");
+            sphere.transform.Scale = 0.07f;
             components = game.Components;
 
             screen = new SurfacePlane(game, game.Form.Width, game.Form.Height, new Vector4(0f, 0f, 0f, 1f));
@@ -61,6 +67,9 @@ namespace GameFramework
             src.transform.Position += new Vector3(0f, 0f, -15f);
             src.SetTextureFile("Moon.jpg");
 
+            directLight = new LightCamera(game);
+            directLight.setLightData(new Vector4(10f, 0f, 0f, 1f), (Vector4)Color.Green);
+            CreateDirectPS("Shaders/BCDefferedLight.fx");
 
             Initialize("Shaders/BCDeffered.fx");
 
@@ -76,28 +85,30 @@ namespace GameFramework
         }
         public override void goRender()
         {
-            //GPass();
+            GPass();
 
             LightPass();
+
+            DirectionalPass();
 
             game.swapChain.Present(0, PresentFlags.None);  
         }
         public void GPass()
         {
-            game.context.OutputMerger.SetRenderTargets(game.depthView, renderTargets);
 
-            //game.context.OutputMerger.SetTargets(game.shadowView, game.renderView);
+            game.context.OutputMerger.SetRenderTargets(game.depthView, renderTargets);
             
-            game.context.ClearDepthStencilView(game.shadowView, DepthStencilClearFlags.Depth, 1.0f, 0);/////////
+            game.context.ClearDepthStencilView(game.depthView, DepthStencilClearFlags.Depth, 1.0f, 0);/////////
 
             game.context.ClearRenderTargetView(renderTargets[0], Color.DarkSlateBlue);
             game.context.ClearRenderTargetView(renderTargets[1], Color.Black);
             game.context.ClearRenderTargetView(renderTargets[2], Color.Black);
-            //game.context.ClearRenderTargetView(game.renderView, Color.DarkSlateBlue);
+           // game.context.ClearDepthStencilView(game.shadowView, DepthStencilClearFlags.Depth, 1.0f, 0);
 
 
             foreach (GameComponent component in components)
             {
+                
                 if (component.lightFlag)
                 {
                     comVertexBufBinding = new VertexBufferBinding(component.vertexBuffer, component.vbSize, 0);
@@ -106,10 +117,10 @@ namespace GameFramework
                     game.context.InputAssembler.InputLayout = component.layout;
                     game.context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
                     game.context.InputAssembler.SetVertexBuffers(0, comVertexBufBinding);
-                    game.context.VertexShader.Set(vertexShader); //////
+                    game.context.VertexShader.Set(vertexShader); 
                     game.context.PixelShader.SetShaderResource(0, component.textureView);
                     game.context.PixelShader.SetSampler(0, sampler);
-                    game.context.PixelShader.Set(pixelShader);   ////
+                    game.context.PixelShader.Set(pixelShader);
                     game.context.VertexShader.SetConstantBuffer(1, game.lightBuffer);
                     game.context.VertexShader.SetConstantBuffer(0, component.constantBuffer);
                     game.context.PixelShader.SetConstantBuffer(1, game.lightBuffer);
@@ -121,76 +132,128 @@ namespace GameFramework
                 }
 
             }
-            
+           
 
         }
         public void LightPass()
         {
-            //FrontBackRender(lightList[0]);
-           // game.context.OutputMerger.ResetTargets();
+
+            //----------------Ambient pass --------------------------------//
+            game.context.OutputMerger.SetTargets(game.shadowView, game.renderView);
+            
+
+            game.context.ClearRenderTargetView(game.renderView, Color.DarkSlateBlue);
+            game.context.ClearDepthStencilView(game.shadowView, DepthStencilClearFlags.Depth, 1.0f, 0);
+            screen.SetConstantData();
+            DrawScreen(screen.vertexShader, screen.pixelShader);
+
+            //----------------Light pass --------------------------------//
+
+            game.context.OutputMerger.SetTargets(game.depthView);
+            game.context.ClearDepthStencilView(game.depthView, DepthStencilClearFlags.Stencil, 1.0f, 0);
+
+            sphere.rasterState = backRasterizer;
+            game.context.OutputMerger.DepthStencilState = depthStencilState;
+            game.context.OutputMerger.BlendState = blendState;
+            sphere.SetConstantData();
+            game.context.InputAssembler.InputLayout = sphere.layout;
+            game.context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
+            game.context.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(sphere.vertexBuffer, Utilities.SizeOf<Vector4>() * 3, 0));
+            game.context.VertexShader.Set(sphere.lightVertexShader);
+            game.context.PixelShader.Set(null);
+            game.context.VertexShader.SetConstantBuffer(0, sphere.constantBuffer);
+            game.context.VertexShader.SetConstantBuffer(1, game.lightBuffer);
+            game.context.InputAssembler.SetVertexBuffers(0, sphere.BufferBinding);
+            sphere.ResterizeStage();
+            game.context.Draw(sphere.verticesCount, 0);
+            //------------------Front--------------------------//
+
             game.context.OutputMerger.SetTargets(game.depthView, game.renderView);
-            //game.context.OutputMerger.DepthStencilState = depthStateNoZBuf;
-           // game.context.OutputMerger.SetTargets(game.shadowView, game.renderView);
+            sphere.rasterState = frontRasterizer;
+            game.context.OutputMerger.DepthStencilState = depthStencilState2;
+            game.context.OutputMerger.BlendState = addBlendState;
+            game.context.OutputMerger.DepthStencilReference = 1;
+
+            sphere.SetConstantData();
+            game.context.InputAssembler.InputLayout = sphere.layout;
+            game.context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
+            game.context.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(sphere.vertexBuffer, Utilities.SizeOf<Vector4>() * 3, 0));
+            game.context.VertexShader.Set(sphere.vertexShaderLight);
+            game.context.PixelShader.Set(sphere.pixelShaderLight);
+            game.context.PixelShader.SetShaderResource(1, diffuseResourceView);
+            game.context.PixelShader.SetShaderResource(2, normalResourceView);
+            game.context.PixelShader.SetShaderResource(3, positionResourceView);
+            game.context.VertexShader.SetConstantBuffer(0, sphere.constantBuffer);
+            game.context.VertexShader.SetConstantBuffer(1, game.lightBuffer);
+            game.context.PixelShader.SetConstantBuffer(1, game.lightBuffer);
+            game.context.InputAssembler.SetVertexBuffers(0, sphere.BufferBinding);
+            sphere.ResterizeStage();
+            game.context.Draw(sphere.verticesCount, 0);
+
+
+            game.context.OutputMerger.SetDepthStencilState(depthStateZBuf);
+            game.context.OutputMerger.BlendState = blendState;
+            sphere.rasterState = backRasterizer;
+
+        }
+        private void DirectionalPass()
+        {
+            directLight.camera.Render();
+            game.context.OutputMerger.SetTargets(game.shadowView, game.renderView);
+            game.context.OutputMerger.BlendState = addBlendState;
+            // game.context.OutputMerger.DepthStencilState = depthStateZBuf;
 
            // game.context.ClearRenderTargetView(game.renderView, Color.DarkSlateBlue);
-            //game.context.ClearDepthStencilView(game.depthView, DepthStencilClearFlags.Depth, 1.0f, 0);
-        
+            game.context.ClearDepthStencilView(game.shadowView, DepthStencilClearFlags.Depth, 1.0f, 0);
+
+            screen.SetConstantData();
+            
             src.Update();
+            game.context.UpdateSubresource(ref directLight.light, game.lightBuffer);
             game.context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
             game.context.InputAssembler.InputLayout = null;
             game.context.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(null, 0, 0));
             game.context.VertexShader.Set(screen.vertexShader);
-            game.context.PixelShader.Set(screen.pixelShader);
+            game.context.PixelShader.Set(directPS);
             game.context.PixelShader.SetShaderResource(1, diffuseResourceView);
             game.context.PixelShader.SetShaderResource(2, normalResourceView);
             game.context.PixelShader.SetShaderResource(3, positionResourceView);
+
+
             game.context.InputAssembler.SetIndexBuffer(null, Format.R32_UInt, 0);
-            if (src.lightFlag)
-            {
-                game.context.PixelShader.SetShaderResource(1, game.shadowResourceView);
-                game.context.PixelShader.SetSampler(1, game.shadowSampler);
-            }
-            game.context.VertexShader.SetConstantBuffer(0, src.constantBuffer);
-            game.context.PixelShader.SetConstantBuffer(0, src.constantBuffer);
+            game.context.VertexShader.SetConstantBuffer(0, screen.constantBuffer);
+            game.context.PixelShader.SetConstantBuffer(0, screen.constantBuffer);
             game.context.VertexShader.SetConstantBuffer(1, game.lightBuffer);
             game.context.PixelShader.SetConstantBuffer(1, game.lightBuffer);
             src.ResterizeStage();
             game.context.Draw(4, 0);
 
-
-            // game.context.Rasterizer.State = new RasterizerState(game.device, new RasterizerStateDescription() {CullMode = CullMode.None, FillMode = FillMode.Wireframe});
-
-            //game.context.InputAssembler.InputLayout = screen.layout;
-            //game.context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
-            //game.context.InputAssembler.SetVertexBuffers(0, screen.vertexBufBinding);
-            //game.context.VertexShader.Set(screen.vertexShader);
-
-            //game.context.PixelShader.SetShaderResource(1, diffuseResourceView);
-            //game.context.PixelShader.SetShaderResource(2, normalResourceView);
-            //game.context.PixelShader.SetShaderResource(3, positionResourceView);
-            //game.context.PixelShader.SetSampler(0, sampler);
-            //game.context.PixelShader.Set(screen.pixelShader);
-
-            //game.context.VertexShader.SetConstantBuffer(1, game.lightBuffer);
-            //game.context.VertexShader.SetConstantBuffer(0, screen.constantBuffer);
-            //game.context.PixelShader.SetConstantBuffer(1, game.lightBuffer);
-            //game.context.PixelShader.SetConstantBuffer(0, screen.constantBuffer);
-
-            // screen.ResterizeStage();
-            // game.context.Draw(screen.verticesCount, 0);
-            //////////////////////////////////////////////////////////////////// 
-            //  screen.Update();
-            //  game.context.ClearDepthStencilView(game.shadowView, DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1.0f, 0);
-            // game.context.OutputMerger.SetTargets(game.shadowView, game.renderView);
-
-            // FrontBackRender(sphere);
-
-            //screen.ResterizeStage();
-            // game.context.Draw(screen.verticesCount, 0);
-
-            //Prresent all
-            //  game.swapChain.Present(0, PresentFlags.None);
+            game.context.OutputMerger.SetDepthStencilState(depthStateZBuf);
+            game.context.OutputMerger.BlendState = blendState;
         }
+
+        private void DrawScreen(VertexShader vsh, PixelShader psh)
+        {
+            src.Update();
+            game.context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
+            game.context.InputAssembler.InputLayout = null;
+            game.context.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(null, 0, 0));
+            game.context.VertexShader.Set(vsh);
+            game.context.PixelShader.Set(psh);
+            game.context.PixelShader.SetShaderResource(1, diffuseResourceView);
+            game.context.PixelShader.SetShaderResource(2, normalResourceView);
+            game.context.PixelShader.SetShaderResource(3, positionResourceView);
+            
+
+            game.context.InputAssembler.SetIndexBuffer(null, Format.R32_UInt, 0);
+            game.context.VertexShader.SetConstantBuffer(0, screen.constantBuffer);
+            game.context.PixelShader.SetConstantBuffer(0, screen.constantBuffer);
+            game.context.VertexShader.SetConstantBuffer(1, game.lightBuffer);
+            game.context.PixelShader.SetConstantBuffer(1, game.lightBuffer);
+            src.ResterizeStage();
+            game.context.Draw(4, 0);
+        }
+
         private void Create_GBuffer()
         {
             CreatePositionBuff();
@@ -236,6 +299,7 @@ namespace GameFramework
            
             game.context.Rasterizer.State = frontRasterizer;
             game.context.OutputMerger.DepthStencilState = depthStencilState2;
+            game.context.OutputMerger.DepthStencilReference = 1;
             game.context.OutputMerger.BlendState = addBlendState;
             component.UpdateContext(SharpDX.Direct3D.PrimitiveTopology.TriangleList, component.vbSize);
             game.context.InputAssembler.InputLayout = screen.layout;
@@ -253,7 +317,6 @@ namespace GameFramework
             game.context.VertexShader.SetConstantBuffer(0, screen.constantBuffer);
             game.context.PixelShader.SetConstantBuffer(1, game.lightBuffer);
             game.context.PixelShader.SetConstantBuffer(0, screen.constantBuffer);
-            game.context.PixelShader.Set(component.pixelShader);
 
             component.ResterizeStage();
             game.context.Draw(component.verticesCount, 0);
@@ -273,6 +336,12 @@ namespace GameFramework
             pixelShaderBC = ShaderBytecode.CompileFromFile(filename, "PSMain", "ps_5_0", ShaderFlags.PackMatrixRowMajor);
             pixelShader = new PixelShader(game.device, pixelShaderBC);
         }
+      
+        private void CreateDirectPS(string filename)
+        {
+            pixelShaderBC = ShaderBytecode.CompileFromFile(filename, "PSDirect", "ps_5_0", ShaderFlags.PackMatrixRowMajor);
+            directPS = new PixelShader(game.device, pixelShaderBC);
+        }
         private void CreatePositionBuff()
         {
             positionBuf = new Texture2D(game.device, new Texture2DDescription
@@ -281,7 +350,8 @@ namespace GameFramework
                 Width = game.Form.ClientSize.Width,
                 ArraySize = 1,
                 BindFlags = BindFlags.RenderTarget | BindFlags.ShaderResource,
-                Format = Format.R8G8B8A8_UNorm,
+                Format = Format.R32G32B32A32_Float,
+                //Format = Format.R8G8B8A8_UNorm,
                 MipLevels = 1,
                 Usage = ResourceUsage.Default,
                 SampleDescription = new SampleDescription(1, 0)
@@ -290,7 +360,8 @@ namespace GameFramework
             posRenderTarget = new RenderTargetView(game.device, positionBuf);
             positionResourceView = new ShaderResourceView(game.device, positionBuf, new ShaderResourceViewDescription
             {
-                Format = Format.R8G8B8A8_UNorm,
+                // Format = Format.R8G8B8A8_UNorm,
+                Format = Format.R32G32B32A32_Float,
                 Dimension = ShaderResourceViewDimension.Texture2D,
                 Texture2D = new ShaderResourceViewDescription.Texture2DResource
                 {
@@ -370,6 +441,31 @@ namespace GameFramework
                 MinimumLod = -float.MaxValue,
                 MaximumLod = float.MaxValue
             });
+        }
+        private void CreateDefaultState()
+        {
+            ssDescription = new DepthStencilStateDescription
+            {
+                IsDepthEnabled = true,
+                IsStencilEnabled = false,
+                // DepthWriteMask = DepthWriteMask.Zero,
+
+                BackFace = new DepthStencilOperationDescription
+                {
+                    Comparison = Comparison.Always,
+                    PassOperation = StencilOperation.Keep,
+                    FailOperation = StencilOperation.Keep,
+                    DepthFailOperation = StencilOperation.Decrement
+                },
+                FrontFace = new DepthStencilOperationDescription
+                {
+                    PassOperation = StencilOperation.Keep,
+                    FailOperation = StencilOperation.Keep,
+                    DepthFailOperation = StencilOperation.Increment,
+                    Comparison = Comparison.Always
+                }
+            };
+            depthStateDefault = new DepthStencilState(device, ssDescription);
         }
     }
 }

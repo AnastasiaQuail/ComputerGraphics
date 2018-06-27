@@ -158,7 +158,7 @@ namespace GameFramework
             }catch(ArgumentNullException e) { Console.WriteLine(e.Message); }
             vertexShader = new VertexShader(device, vertexShaderBC);
         }
-        private void CreatePixelBuffer(string filename)
+        public virtual void CreatePixelBuffer(string filename)
         {
             //and PixelBuffer
             pixelShaderBC = ShaderBytecode.CompileFromFile(filename, "PSMain", "ps_5_0", ShaderFlags.PackMatrixRowMajor);
