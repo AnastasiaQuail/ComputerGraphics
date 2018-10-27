@@ -37,6 +37,7 @@ namespace GameFramework
         public Texture2D shadowBuffer;
         public DepthStencilView shadowView;
         public bool shadowFlag;
+        public MyConsole console;
 
         public DepthStencilView depthView { get; set; }
         public Buffer lightBuffer;
@@ -93,7 +94,7 @@ namespace GameFramework
             };
 
             //Creating SwapChain
-            Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.Debug, swapChainDesc, out device, out swapChain);
+            Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, new SharpDX.Direct3D.FeatureLevel[] { SharpDX.Direct3D.FeatureLevel.Level_10_0 }, swapChainDesc, out device, out swapChain);
 
             //Create backBuffer from SwapChain and create Render view
             backBuffer = swapChain.GetBackBuffer<Texture2D>(0);
@@ -145,7 +146,10 @@ namespace GameFramework
             backRasterState = new RasterizerState(device, rasterStateDesc);
             CreateBlendState();
 
-            
+            console = new MyConsole();
+            console.Initialize(this);
+            console.WriteLine("Console was initialazed!");
+
         }
 
         public void Dispose()
@@ -167,7 +171,8 @@ namespace GameFramework
                     depthView.Dispose();
                     device.Dispose();
                     swapChain.Dispose();
-                }
+                    console.Dispose();
+            }
             catch (NullReferenceException e)
             {
 
@@ -178,6 +183,7 @@ namespace GameFramework
 
         public virtual void Run()
         {
+            console.WriteLine("Start main render loop!");
             if (!IsActive)
             { Dispose(); return; }
             else
@@ -208,7 +214,7 @@ namespace GameFramework
                     context.ClearDepthStencilView(depthView, DepthStencilClearFlags.Depth|DepthStencilClearFlags.Stencil, 1.0f, 0);
                     context.ClearRenderTargetView(renderView, Color.DarkSlateBlue);
 
-                    render.goRender();
+                    //render.goRender();
                     //-------------Shadow map=-----------------//
                     //context.ClearDepthStencilView(shadowView, DepthStencilClearFlags.Depth, 1.0f, 0);
 
@@ -226,24 +232,24 @@ namespace GameFramework
                     //---------------------------------------------//
 
                     //------------Shadow volume----------------//
-                    //context.OutputMerger.SetTargets(depthView, renderView);
+                    context.OutputMerger.SetTargets(depthView, renderView);
 
-                    //foreach (var component in Components)
-                    //{
-                    //    //Update components
-                    //    component.Update();
-                    //}
+                    foreach (var component in Components)
+                    {
+                        //Update components
+                        component.Update();
+                    }
 
-                    ////Drawing all components of the Game
-                    //foreach (var component in Components)
-                    //{
-                    //    component.Draw();
-                    //}
-                    //shadowCube.Draw();
-                    //RenderShadowVolume();
-
+                    //Drawing all components of the Game
+                    foreach (var component in Components)
+                    {
+                        component.Draw();
+                    }
+                    shadowCube.Draw();
+                    RenderShadowVolume();
+                    console.Draw(clock);
                     //Prresent all
-                   // swapChain.Present(0, PresentFlags.None);
+                    swapChain.Present(0, PresentFlags.None);
                     //---------------------------------------------//
                     if (inputDevice.IsKeyDown(System.Windows.Forms.Keys.Escape))
                     {

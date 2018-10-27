@@ -55,6 +55,7 @@ namespace GameFramework
             }
 
             flag = staticFlag;
+
             
         }
 
@@ -100,22 +101,26 @@ namespace GameFramework
 
             if(input.IsKeyDown(Keys.W)) //Move Forward
             {
-               Position +=rotationMatrix.Forward*delta;   
+               Position +=rotationMatrix.Forward*delta;
+               game.console.WriteLine("Moving camera forward");
             }
             
             if (input.IsKeyDown(Keys.S)) //Move Backward
             {
-                Position -= rotationMatrix.Forward * delta; 
+                Position -= rotationMatrix.Forward * delta;
+                game.console.WriteLine("Moving camera backward");
             }
 
             if (input.IsKeyDown(Keys.A)) //Move Left
             {
                 Position -= rotationMatrix.Left*delta;
+                game.console.WriteLine("Moving camera left");
             }
 
             if (input.IsKeyDown(Keys.D)) //Move Right
             {
                 Position -= rotationMatrix.Right * delta;
+                game.console.WriteLine("Moving camera right");
             }
             if (input.IsKeyDown(Keys.Space))
             {
@@ -125,7 +130,6 @@ namespace GameFramework
             {
                 Position -= rotationMatrix.Up*delta;
             }
-            
         }
         private void MouseControl(InputDevice.MouseMoveEventArgs eventArgs)
         {

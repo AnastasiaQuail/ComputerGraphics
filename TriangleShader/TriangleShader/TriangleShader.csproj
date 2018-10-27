@@ -88,6 +88,8 @@
     <Compile Include="LightVolume.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MoonCubeComponent.cs" />
+    <Compile Include="MyConsole.cs" />
+    <Compile Include="MyText.cs" />
     <Compile Include="ObjLoader.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="PlayerController.cs" />

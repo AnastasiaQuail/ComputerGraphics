@@ -90,6 +90,7 @@ namespace GameFramework
             }
 
             CreateRasterizwState();
+            game.console.WriteLine(nameOfFile+" was initialized!");
         }
 
         public void CreateRasterizwState()
@@ -111,6 +112,7 @@ namespace GameFramework
             }
             catch (ArgumentNullException e) { Console.WriteLine(e.Message); }
             shadowVertexShader = new VertexShader(device, shadowVertexShaderBC); 
+
         }
 
         public virtual void Update()
@@ -129,8 +131,7 @@ namespace GameFramework
 
         }
         public virtual void Draw() {
-            
-		}
+        }
         public void Dispose()
         {
             //Dispose all resourses
