@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DirectWrite;
 using SharpDX.DXGI;
+using SharpDX.RawInput;
 using SharpDX.Windows;
 
 using AlphaMode = SharpDX.Direct2D1.AlphaMode;
@@ -31,10 +33,17 @@ namespace GameFramework
         private MyTextWriter textWriter;
         private Vector2 consoleStart;
         private List<String> concoleText;
+        private InputDevice input;
+        private bool flagConsoleOpen;
+        private string rawInput;
 
         public void Initialize(Game game)
         {
             this.game = game;
+            this.input = game.inputDevice;
+            flagConsoleOpen = false;
+            rawInput = "";
+            SharpDX.RawInput.Device.KeyboardInput += Input;
 
             d2dFactory = new SharpDX.Direct2D1.Factory();
 
@@ -65,18 +74,26 @@ namespace GameFramework
         }
         public void Draw(Stopwatch stopwatch)
         {
-                d2dRenderTarget.BeginDraw();
-                solidColorBrush.Color = new Color4(Color3.Black,1.0f);
-                d2dRenderTarget.FillGeometry(rectangleGeometry, solidColorBrush, null);
-                textWriter.WriteLine(concoleText);
-                d2dRenderTarget.EndDraw();
+            d2dRenderTarget.BeginDraw();
+            solidColorBrush.Color = new Color4(Color3.Black, 1.0f);
+            d2dRenderTarget.FillGeometry(rectangleGeometry, solidColorBrush, null);
+            textWriter.WriteLine(concoleText);
+            d2dRenderTarget.EndDraw();
 
-                
+
         }
         public void WriteLine(string text)
         {
-            concoleText.Add( (text+ "\n").ToString());
-            if (concoleText.Count>7)
+            concoleText.Add((text + "\n").ToString());
+            if (concoleText.Count > 7)
+            {
+                concoleText.RemoveAt(0);
+            }
+        }
+        public void Write(string text)
+        {
+            concoleText.Add((text).ToString());
+            if (concoleText.Count > 7)
             {
                 concoleText.RemoveAt(0);
             }
@@ -87,6 +104,37 @@ namespace GameFramework
             backBuffer.Dispose();
             factory.Dispose();
         }
-    }
+        public void Input(object sender, KeyboardInputEventArgs e)
+        {
+            string c;
+            Keys key;
 
+            if ((e.Key == Keys.Tab))  //was closed, but we open console for write with Tab
+            {
+                flagConsoleOpen = !flagConsoleOpen;//change flag
+                rawInput = "";
+                //concoleText.RemoveAt(concoleText.Count - 1);
+                //concoleText.Add("_|");
+                return;//clear previous input
+            }
+            if (flagConsoleOpen)
+            {
+                if (e.Key != Keys.Enter)
+                {
+                    key = e.Key;
+                    c = key.ToString();
+                    Write(c);
+                    rawInput += c;
+                    return;
+                }
+                else
+                {
+                    Write(rawInput);
+                    rawInput = "";
+                    return;
+                }
+            }
+        }
+    }
 }
+           

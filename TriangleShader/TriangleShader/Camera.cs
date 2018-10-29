@@ -99,25 +99,25 @@ namespace GameFramework
         private void Keyboard_Controls()
         {
 
-            if(input.IsKeyDown(Keys.W)) //Move Forward
+            if(input.IsKeyDown(Keys.Up)) //Move Forward
             {
                Position +=rotationMatrix.Forward*delta;
                game.console.WriteLine("Moving camera forward");
             }
             
-            if (input.IsKeyDown(Keys.S)) //Move Backward
+            if (input.IsKeyDown(Keys.Down)) //Move Backward
             {
                 Position -= rotationMatrix.Forward * delta;
                 game.console.WriteLine("Moving camera backward");
             }
 
-            if (input.IsKeyDown(Keys.A)) //Move Left
+            if (input.IsKeyDown(Keys.Left)) //Move Left
             {
                 Position -= rotationMatrix.Left*delta;
                 game.console.WriteLine("Moving camera left");
             }
 
-            if (input.IsKeyDown(Keys.D)) //Move Right
+            if (input.IsKeyDown(Keys.Right)) //Move Right
             {
                 Position -= rotationMatrix.Right * delta;
                 game.console.WriteLine("Moving camera right");

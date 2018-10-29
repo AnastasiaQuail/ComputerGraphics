@@ -12,6 +12,7 @@ namespace GameFramework
 		public Game Game;
 
 		public HashSet<Keys> PressedKeys = new HashSet<Keys>();
+        private Keys lastKey;
 
 		public Vector2 MousePositionLocal	{ get; private set; }
 		public Vector2 MouseOffset			{ get; private set; }
@@ -44,7 +45,8 @@ namespace GameFramework
 			bool Break	= e.ScanCodeFlags.HasFlag(ScanCodeFlags.Break);
 
 			if (Break) {
-				if (PressedKeys.Contains(e.Key)) RemovePressedKey(e.Key);
+                lastKey = e.Key;
+                if (PressedKeys.Contains(e.Key)) RemovePressedKey(e.Key);
 			} else {
 				if (!PressedKeys.Contains(e.Key)) AddPressedKey(e.Key);
 			}
@@ -120,6 +122,11 @@ namespace GameFramework
             
 
 		}
+
+        public Keys GetLastKey()
+        {
+            return lastKey;
+        }
 
 
 	}
