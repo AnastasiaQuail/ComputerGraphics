@@ -36,6 +36,7 @@ namespace GameFramework
         private InputDevice input;
         private bool flagConsoleOpen;
         private string rawInput;
+        private TextBox tb;
 
         public void Initialize(Game game)
         {
@@ -43,7 +44,7 @@ namespace GameFramework
             this.input = game.inputDevice;
             flagConsoleOpen = false;
             rawInput = "";
-            SharpDX.RawInput.Device.KeyboardInput += Input;
+            game.Form.KeyPress += Input;
 
             d2dFactory = new SharpDX.Direct2D1.Factory();
 
@@ -92,6 +93,7 @@ namespace GameFramework
         }
         public void Write(string text)
         {
+            concoleText.RemoveAt(concoleText.Count-1);
             concoleText.Add((text).ToString());
             if (concoleText.Count > 7)
             {
@@ -104,12 +106,11 @@ namespace GameFramework
             backBuffer.Dispose();
             factory.Dispose();
         }
-        public void Input(object sender, KeyboardInputEventArgs e)
+        public void Input(object sender, KeyPressEventArgs e)
         {
             string c;
-            Keys key;
 
-            if ((e.Key == Keys.Tab))  //was closed, but we open console for write with Tab
+            if (e.KeyChar == (char)Keys.Tab)  //was closed, but we open console for write with Tab
             {
                 flagConsoleOpen = !flagConsoleOpen;//change flag
                 rawInput = "";
@@ -119,18 +120,18 @@ namespace GameFramework
             }
             if (flagConsoleOpen)
             {
-                if (e.Key != Keys.Enter)
+                if (e.KeyChar != (char)Keys.Enter)
                 {
-                    key = e.Key;
-                    c = key.ToString();
-                    Write(c);
+                    c = e.KeyChar.ToString();
                     rawInput += c;
+                    Write(rawInput);
                     return;
                 }
                 else
                 {
                     Write(rawInput);
                     rawInput = "";
+                    WriteLine("");
                     return;
                 }
             }

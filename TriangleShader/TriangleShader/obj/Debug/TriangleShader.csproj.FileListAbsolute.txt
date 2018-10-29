@@ -413,3 +413,5 @@ C:\Users\User\Documents\GitHub\ComputerGraphics\TriangleShader\TriangleShader\ob
 C:\Users\User\Documents\GitHub\ComputerGraphics\TriangleShader\TriangleShader\obj\Debug\TriangleShader.csproj.CopyComplete
 C:\Users\User\Documents\GitHub\ComputerGraphics\TriangleShader\TriangleShader\obj\Debug\TriangleShader.exe
 C:\Users\User\Documents\GitHub\ComputerGraphics\TriangleShader\TriangleShader\obj\Debug\TriangleShader.pdb
+C:\Users\User\Documents\GitHub\ComputerGraphics\TriangleShader\TriangleShader\bin\Debug\KeraLua.dll
+C:\Users\User\Documents\GitHub\ComputerGraphics\TriangleShader\TriangleShader\bin\Debug\NLua.dll
