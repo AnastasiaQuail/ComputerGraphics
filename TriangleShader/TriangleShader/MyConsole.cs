@@ -37,15 +37,22 @@ namespace GameFramework
         private bool flagConsoleOpen;
         private string rawInput;
         private TextBox tb;
+        private LuaCompiller compiller;
 
         public void Initialize(Game game)
         {
             this.game = game;
+
+            // allow input actions
             this.input = game.inputDevice;
             flagConsoleOpen = false;
             rawInput = "";
             game.Form.KeyPress += Input;
 
+            // create Lua compiller element to run code from console
+            compiller = new LuaCompiller();
+
+            // create console window
             d2dFactory = new SharpDX.Direct2D1.Factory();
 
             width = 500;
@@ -100,6 +107,17 @@ namespace GameFramework
                 concoleText.RemoveAt(0);
             }
         }
+        private void Remove()
+        {
+            if (rawInput.Length != 1)
+            {
+                rawInput = rawInput.Remove(rawInput.Length - 2);
+            }
+            else
+            {
+                rawInput = "";
+            }
+        }
         public void Dispose()
         {
             renderView.Dispose();
@@ -122,14 +140,32 @@ namespace GameFramework
             {
                 if (e.KeyChar != (char)Keys.Enter)
                 {
-                    c = e.KeyChar.ToString();
-                    rawInput += c;
+                    if (e.KeyChar == (char)Keys.Back)
+                    {
+                        Remove();
+                    }
+                    else
+                    {
+                        c = e.KeyChar.ToString();
+                        rawInput += c;
+                    }
                     Write(rawInput);
                     return;
                 }
                 else
                 {
                     Write(rawInput);
+                    try
+                    {
+                        WriteLine(compiller.DoCode(rawInput));
+                    }
+                    catch( Exception exc)
+                    {
+                        WriteLine(exc.Message);
+                        rawInput = "";
+                        WriteLine("");
+                        return;
+                    }
                     rawInput = "";
                     WriteLine("");
                     return;

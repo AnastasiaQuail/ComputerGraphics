@@ -92,6 +92,7 @@
     <Compile Include="LightCamera.cs" />
     <Compile Include="LightData.cs" />
     <Compile Include="LightVolume.cs" />
+    <Compile Include="LuaCompiller.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MoonCubeComponent.cs" />
     <Compile Include="MyConsole.cs" />
